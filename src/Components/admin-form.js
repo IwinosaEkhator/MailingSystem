@@ -26,11 +26,14 @@ const AdminForm = () => {
         re_date: '',
     });
     const [submitted, setSubmitted] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
 
     const handleChange = (e) => {
+        if (!e) return;
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     }
+    
 
     const nextStep = () => {
         setStep(step + 1);
@@ -57,31 +60,40 @@ const AdminForm = () => {
         setForms(forms.filter(form => form.id !== id));
     };
 
-    const handleUpdateDescription = (id, updatedDescription, unit, quantity) => {
-        setForms(forms.map(form => form.id === id ? { ...form, description: updatedDescription, unit, quantity } : form));
+    const handleUpdateDescription = (id, description, unit, quantity) => {
+        setForms(forms.map(form => form.id === id ? { ...form, description, unit, quantity } : form));
     };
 
     const handlePrint = () => {
+        const printContents = document.getElementById('invoice').innerHTML;
+        const originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
         window.print();
+        document.body.innerHTML = originalContents;
+        window.location.reload(); // Reload the page to revert back to the original content
     };
 
-    const handleDownload = () => {
+    const generatePdf = () => {
         const input = document.getElementById('invoice');
-        html2canvas(input, { scale: 2 }).then((canvas) => {
+        return html2canvas(input, { scale: 2 }).then((canvas) => {
             const imgData = canvas.toDataURL('image/png');
             const pdf = new jsPDF('p', 'mm', 'a4');
             const pdfWidth = pdf.internal.pageSize.getWidth();
             const pdfHeight = pdf.internal.pageSize.getHeight();
-            const imgWidth = pdfWidth;
-            const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+            const imgWidth = pdfWidth * 0.95; // Reduce image width slightly to fit the page
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+            let x = (pdfWidth - imgWidth) / 2; // Center horizontally
+            let y = (pdfHeight - imgHeight) / 2; // Center vertically (for first page)
 
             if (imgHeight <= pdfHeight) {
-                pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+                pdf.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
             } else {
                 let heightLeft = imgHeight;
                 let position = 0;
+
                 while (heightLeft > 0) {
-                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    pdf.addImage(imgData, 'PNG', x, position, imgWidth, imgHeight);
                     heightLeft -= pdfHeight;
                     position -= pdfHeight;
                     if (heightLeft > 0) {
@@ -89,23 +101,42 @@ const AdminForm = () => {
                     }
                 }
             }
+
+            return pdf;
+        });
+    };
+
+    const handleDownload = () => {
+        generatePdf().then((pdf) => {
             pdf.save("invoice.pdf");
+            setSuccessMessage('Successfully downloaded!');
+        }).catch((error) => {
+            console.error('Error generating PDF:', error);
         });
     };
 
     const handleShare = async () => {
-        if (navigator.share) {
-            try {
+        try {
+            const pdf = await generatePdf();
+            const pdfBlob = pdf.output('blob');
+
+            const file = new File([pdfBlob], 'invoice.pdf', {
+                type: 'application/pdf',
+                lastModified: new Date().getTime()
+            });
+
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
                 await navigator.share({
+                    files: [file],
                     title: 'Invoice',
-                    text: 'Check out this invoice!',
-                    url: window.location.href
+                    text: 'Check out this invoice!'
                 });
-            } catch (err) {
-                console.error('Error sharing:', err);
+                setSuccessMessage('Successfully shared!');
+            } else {
+                alert('Share not supported on this browser, please copy the link manually.');
             }
-        } else {
-            alert('Share not supported on this browser, please copy the link manually.');
+        } catch (error) {
+            console.error('Error sharing:', error);
         }
     };
 
@@ -122,7 +153,7 @@ const AdminForm = () => {
                                 fPlaceholder=""
                                 fElement="date"
                                 fType="date"
-                                fOnChange={(e) => handleChange(null, e)}
+                                fOnChange={handleChange}
                                 fValue={formData.date}
                             />
 
@@ -131,7 +162,7 @@ const AdminForm = () => {
                                 fPlaceholder=""
                                 fElement="from"
                                 fType="text"
-                                fOnChange={(e) => handleChange(null, e)}
+                                fOnChange={handleChange}
                                 fValue={formData.from}
                             />
 
@@ -141,7 +172,7 @@ const AdminForm = () => {
                                     fPlaceholder=""
                                     fElement="to"
                                     fType="name"
-                                    fOnChange={(e) => handleChange(null, e)}
+                                    fOnChange={handleChange}
                                     fValue="Ekhator Iwinosa"
                                 />
 
@@ -150,7 +181,7 @@ const AdminForm = () => {
                                     fPlaceholder=""
                                     fElement="to"
                                     fType="name"
-                                    fOnChange={(e) => handleChange(null, e)}
+                                    fOnChange={handleChange}
                                     fValue="npdc.b0011"
                                 />
                             </div>
@@ -236,8 +267,8 @@ const AdminForm = () => {
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className='d-flex justify-content-end mt-4'>
-                                            <button className='btn me-2 btn-outline-success' title='Print the receipt' onClick={handlePrint}><FaPrint style={{ fontSize: "25px" }} /></button>
-                                            <button className='btn me-2 btn-outline-success' title='Download' style={{ fontSize: "25px" }} onClick={handleDownload}><FaDownload style={{ fontSize: "25px" }} /></button>
+                                            {/* <button className='btn me-2 btn-outline-success' title='Print the receipt' onClick={handlePrint}><FaPrint style={{ fontSize: "25px" }} /></button> */}
+                                            <button className='btn me-2 btn-outline-success' title='Download' style={{ fontSize: "20px" }} onClick={handleDownload}>Download</button>
                                             <button className='btn btn-outline-success' title='Share' onClick={handleShare}><FaRegShareSquare style={{ fontSize: "25px" }} /></button>
                                         </div>
                                         <div className="invoice-wrapper" id="invoice">
@@ -273,16 +304,9 @@ const AdminForm = () => {
                                                     <div className="col-sm-6">
                                                         <span>From</span>
                                                         <strong>{formData.from}</strong>
-                                                        {/* <p>                                                            989 5th Avenue
-                                                            <br />
-                                                            City of Monterrey
-                                                            <br />
-                                                            55839
-                                                            <br />
-                                                            USA
-                                                            <br />
-                                                            <a href="mailto:jonnydeff@gmail.com">jonnydeff@gmail.com</a>
-                                                        </p> */}
+                                                        <p>
+                                                            Manager ITD
+                                                        </p>
                                                     </div>
                                                     <div className="col-sm-6 text-end">
                                                         <span>To</span>
