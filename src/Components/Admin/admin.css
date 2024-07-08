@@ -109,12 +109,17 @@ body {
 }
 
 /* ===== Reusable code - Here ===== */
-.sidebar li {
+
+.sidebar .m-link {
   height: 50px;
   list-style: none;
   display: flex;
   align-items: center;
   margin-top: 10px;
+}
+
+.sidebar .collapse .m-link,.sidebar .drop{
+  height: 50px;
 }
 
 .sidebar header .image,
@@ -243,7 +248,6 @@ header .image-text .profession {
 
 .sidebar li a {
   list-style: none;
-  height: 100%;
   background-color: transparent;
   display: flex;
   align-items: center;
