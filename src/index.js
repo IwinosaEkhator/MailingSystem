@@ -9,7 +9,7 @@ import Admin from "./Components/Admin/admin";
 const MailingSystem = () => {
     return (
         <>
-            <LoginPage/>
+            <Admin/>
         </>
 
     );

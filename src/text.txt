@@ -121,3 +121,56 @@
         <span className="text nav-text">Wallets</span>
     </a>
 </li>
+
+
+
+import React, { useState } from 'react';
+import './App.css';
+
+function App() {
+  const [forms, setForms] = useState([{ id: Date.now() }]);
+
+  const addForm = () => {
+    setForms([...forms, { id: Date.now() }]);
+  };
+
+  const removeForm = (id) => {
+    setForms(forms.filter(form => form.id !== id));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Handle form submission logic here
+    console.log('Forms submitted');
+  };
+
+  return (
+    <div className="container">
+      <h1>Request Form</h1>
+      <form onSubmit={handleSubmit}>
+        {forms.map((form, index) => (
+          <div key={form.id} className="request-form">
+            <label>Request Type:</label>
+            <input type="text" name={`requestType-${form.id}`} placeholder="Enter request type" required />
+
+            <label>Request Details:</label>
+            <input type="text" name={`requestDetails-${form.id}`} placeholder="Enter request details" required />
+
+            <button
+              type="button"
+              className={`removeBtn ${index === 0 ? 'disabled' : ''}`}
+              onClick={() => removeForm(form.id)}
+              disabled={index === 0}
+            >
+              Remove
+            </button>
+          </div>
+        ))}
+        <button type="button" onClick={addForm}>Add Another Request</button>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  );
+}
+
+export default App;

@@ -3,7 +3,7 @@ import React from "react";
 import { FaEnvelope } from "@react-icons/all-files/fa/FaEnvelope";
 import nnpcLogo from '../../Assets/nnpc-logo.png'
 import "../../Login/login.css"
-import FormComponents from "../formComp"
+import FormComponents from "../../formComp"
 import LoginBtn from "../loginbtn";
 
 const LoginPage = () => {
