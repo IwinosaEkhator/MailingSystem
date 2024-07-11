@@ -23,7 +23,7 @@ const AdminHome = () => {
 
     return (
         <div className={classNames('body', { 'dark': isDarkMode })}>
-            <div className={classNames('main pt-2')}>
+            <div className={classNames('main')}>
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Dashboard />} />
