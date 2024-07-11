@@ -10,7 +10,7 @@ const Navbar = () => {
 
     return (
         <>
-            <header className="pb-3 mb-4 border-bottom pt-4 dashboard-navbar">
+            <header className="pb-3 px-4 mb-4 border-bottom dashboard-navbar">
                 <div className="container d-flex flex-wrap justify-content-center">
                     <a href="/" className="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
                         <span className="fs-4 welcome">Welcome Back, Admin👏</span>

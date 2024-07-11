@@ -168,12 +168,12 @@ const Sidebar = (props) => {
                 </div>
 
                 <div className="bottom-content">
-                    <li className="m-link">
+                    {/* <li className="m-link">
                         <Link to="#" style={{ padding: "0 30px 0 0" }}>
                             <GiEntryDoor className='icon' style={{ fontSize: "27px" }} />
                             <span className="text nav-text">Logout</span>
                         </Link>
-                    </li>
+                    </li> */}
 
                     <li className="mode m-link">
                         <div className="sun-moon">
