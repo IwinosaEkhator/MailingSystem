@@ -1,18 +1,18 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 
-import "../Components/Admin/admin.css"
-import "../Components/Assets/nnpc-logo.png"
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Adminorder from "./admin-order.js";
-import Ordertable from "./order-table.js";
+import "../Admin/admin.css"
+import Adminorder from "../admin-order.js";
+import Ordertable from "../order-table.js";
 
-const Requests = () => {
+const Pending = () => {
+
 
     return (
 
         <>
+            
             <div className="details">
-                <Adminorder header="Requests">
+                <Adminorder header="Pending">
                     <Ordertable
                         idNum="npdc.b0000"
                         tName="Ekhator Iwinosa"
@@ -49,4 +49,4 @@ const Requests = () => {
     )
 };
 
-export default Requests;
+export default Pending;

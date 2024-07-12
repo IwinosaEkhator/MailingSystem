@@ -1,19 +1,16 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 
-import "../Components/Admin/admin.css"
-import "../Components/Assets/nnpc-logo.png"
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Adminorder from "./admin-order.js";
-import Ordertable from "./order-table.js";
+import "../Admin/admin.css"
+import Adminorder from "../admin-order.js";
+import Ordertable from "../order-table.js";
 
-const Approved = () => {
-
+const Requests = () => {
 
     return (
 
         <>
             <div className="details">
-                <Adminorder  header="Approved">
+                <Adminorder header="Requests">
                     <Ordertable
                         idNum="npdc.b0000"
                         tName="Ekhator Iwinosa"
@@ -50,4 +47,4 @@ const Approved = () => {
     )
 };
 
-export default Approved;
+export default Requests;

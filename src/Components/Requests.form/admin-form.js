@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import AdminFormComponents from './adminFormComp';
-import './Admin/admin.css';
+import '../Admin/admin.css'
 import { FaPrint, FaRegShareSquare, FaDownload } from 'react-icons/fa';
 import { IoIosArrowBack } from "react-icons/io";
 import Resquestorder from './request-order';
-import Requesttable from './request-table';
-import nnpclogo from "../Components/Assets/nnpc-logo.png";
+import Requesttable from './request-table'
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 

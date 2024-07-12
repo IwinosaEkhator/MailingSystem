@@ -8,11 +8,11 @@ import Sidebar from "./sidebar.jsx";
 import Dashboard from "./dashboard.js";
 
 import { Routes, Route } from "react-router-dom";
-import Pending from "./pending.js";
-import Requests from "./requests.js";
-import Approved from "./approved.js";
-import Declined from "./declined.js";
-import AdminForm from "./admin-form.js";
+import Pending from "../Components/Requests/pending.js";
+import Requests from "../Components/Requests/requests.js";
+import Approved from "../Components/Requests/approved.js";
+import Declined from "../Components/Requests/declined.js";
+import AdminForm from "./Requests.form/admin-form.js";
 
 const AdminHome = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);

@@ -1,5 +1,5 @@
 import React from 'react';
-import "../Components/Admin/admin.css";
+import "../Admin/admin.css";
 
 const Resquestorder = (props) => {
     return (
