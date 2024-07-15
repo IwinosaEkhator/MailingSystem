@@ -746,7 +746,11 @@ header .image-text .profession {
 }
 
 .added-product{
-  width: 40%;
+  width: 35%;
+}
+
+.added-product .recentOrders{
+  height: 430px;
 }
 
 .added-product table tr td:nth-child(2){
@@ -755,7 +759,13 @@ header .image-text .profession {
 
 .chart1{
   width: 32%;
-  height: 430px;
+  background-color: var(--white);
+  border-radius: 20px;
+}
+
+.chart2{
+  width: 62%;
+  /* height: 530px; */
   background-color: var(--white);
   border-radius: 20px;
 }

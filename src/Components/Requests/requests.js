@@ -9,7 +9,7 @@ const Requests = () => {
     return (
 
         <>
-            <div className="details">
+            <div className="details" style={{height: "100%"}}>
                 <Adminorder header="Requests">
                     <Ordertable
                         idNum="npdc.b0000"
