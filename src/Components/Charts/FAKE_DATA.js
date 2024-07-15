@@ -43,7 +43,6 @@ export const pieChartData = {
       data: [200, 100, 60],
       backgroundColor: ["#FFD93D", "#6BCB77", "#FF6B6B"],
       hoverOffset: 4,
-      spacing: 0,
     },
   ],
 };

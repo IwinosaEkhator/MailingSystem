@@ -24,20 +24,20 @@ const Dashboard = () => {
     <>
       <div className="main-inside px-3">
         <div className="cardBox">
-          <Card aName="Requests" aNum="100">
+          <Card aName="Requests" aNum="100" aLink="/requests">
             <VscRequestChanges
               style={{ fontSize: "27px", fontSize: "3.5rem" }}
             />
           </Card>
-          <Card aName="Pending" aNum="50">
+          <Card aName="Pending" aNum="50" aLink="/pending">
             <MdOutlinePendingActions
               style={{ fontSize: "27px", fontSize: "3.5rem" }}
             />
           </Card>
-          <Card aName="Approved" aNum="30">
+          <Card aName="Approved" aNum="30" aLink="/approved">
             <FaRegThumbsUp style={{ fontSize: "27px", fontSize: "3.5rem" }} />
           </Card>
-          <Card aName="Declined" aNum="20">
+          <Card aName="Declined" aNum="20" aLink="/declined">
             <FaRegThumbsDown style={{ fontSize: "27px", fontSize: "3.5rem" }} />
           </Card>
         </div>

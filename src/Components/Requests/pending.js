@@ -11,7 +11,7 @@ const Pending = () => {
 
         <>
             
-            <div className="details">
+            <div className="details requests pending">
                 <Adminorder header="Pending">
                     <Ordertable
                         idNum="npdc.b0000"

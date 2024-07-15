@@ -10,7 +10,7 @@ const Declined = () => {
     return (
 
         <>
-            <div className="details">
+            <div className="details requests declined">
                 <Adminorder header="Declined">
                     <Ordertable
                         idNum="npdc.b0000"

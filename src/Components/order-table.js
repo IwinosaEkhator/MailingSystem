@@ -24,7 +24,7 @@ export const AddedProducts = (props) => {
         <>
             <tr>
                 <td>{props.aName}</td>
-                <td>{props.pStocks}</td>
+                <td>{props.aStocks}</td>
                 <td>{props.aSupplier}</td>
             </tr>
         </>

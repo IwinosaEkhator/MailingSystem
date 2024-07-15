@@ -9,8 +9,38 @@ const Requests = () => {
     return (
 
         <>
-            <div className="details" style={{height: "100%"}}>
+            <div className="details requests">
                 <Adminorder header="Requests">
+                    <Ordertable
+                        idNum="npdc.b0000"
+                        tName="Ekhator Iwinosa"
+                        tItems="Laptop"
+                        tStatus="Denied"
+                    />
+                    <Ordertable
+                        idNum="npdc.b0001"
+                        tName="Osunbor Favour"
+                        tItems="Laptop"
+                        tStatus="Approved"
+                    />
+                    <Ordertable
+                        idNum="npdc.b0000"
+                        tName="Edwin Ezue"
+                        tItems="Laptop"
+                        tStatus="Approved"
+                    />
+                    <Ordertable
+                        idNum="npdc.b0000"
+                        tName="Ugheoke Amhanosi"
+                        tItems="Laptop"
+                        tStatus="Pending"
+                    />
+                    <Ordertable
+                        idNum="npdc.b0011"
+                        tName="Ugiagbe Francess"
+                        tItems="Laptop"
+                        tStatus="Pending"
+                    />
                     <Ordertable
                         idNum="npdc.b0000"
                         tName="Ekhator Iwinosa"

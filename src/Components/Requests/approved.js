@@ -10,7 +10,7 @@ const Approved = () => {
     return (
 
         <>
-            <div className="details">
+            <div className="details requests approved">
                 <Adminorder  header="Approved">
                     <Ordertable
                         idNum="npdc.b0000"
