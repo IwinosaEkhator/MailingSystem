@@ -17,7 +17,7 @@ const Navbar = () => {
                     </a>
                     <div className="d-flex align-items-center">
                         <div className="dropdown">
-                            <FaBell className='me-3 dropdown-toggle' style={{ backgroundColor: "none" }} data-bs-toggle="dropdown" aria-expanded="false" />
+                            <FaBell className='me-3 dropdown-toggle' style={{ color: "#000" }} data-bs-toggle="dropdown" aria-expanded="false" />
                             <div className="dropdown-menu pt-0 mx-0 mt-4 rounded-3 shadow overflow-hidden w-300px" data-bs-theme="light">
                                 <form className="p-2 mb-2 bg-body-tertiary border-bottom">
                                     <input type="search" className="form-control" autocomplete="false" placeholder="Type to filter..." />

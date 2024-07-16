@@ -13,6 +13,11 @@ import Requests from "../Components/Requests/requests.js";
 import Approved from "../Components/Requests/approved.js";
 import Declined from "../Components/Requests/declined.js";
 import AdminForm from "./Requests.form/admin-form.js";
+import Inbound from "./Inventory/inbound.js";
+import Inventory from "./Inventory/inventory.js";
+import Outbound from "./Inventory/outbound.js";
+import ScanItems from "./Inventory/scan-items.js";
+import Categories from "./Inventory/categories.js";
 
 const AdminHome = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -31,6 +36,15 @@ const AdminHome = () => {
                     <Route path="/pending" element={<Pending />} />
                     <Route path="/approved" element={<Approved />} />
                     <Route path="/declined" element={<Declined />} />
+
+                    <Route path="/inventory" element={<Inventory />} />
+                    <Route path="/inbound" element={<Inbound />} />
+                    <Route path="/outbound" element={<Outbound />} />
+                    <Route path="/scan-items" element={<ScanItems />} />
+                    <Route path="/categories" element={<Categories />} />
+                    <Route path="/delivery-report" element={<Declined />} />
+                    <Route path="/growth" element={<Declined />} />
+                    <Route path="/receipts" element={<Declined />} />
                     <Route path="/add-form" element={<AdminForm />} />
                 </Routes>
             </div>

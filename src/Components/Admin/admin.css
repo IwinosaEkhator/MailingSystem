@@ -291,6 +291,23 @@ header .image-text .profession {
   transition: var(--tran-05);
 }
 
+/* Sidebar.css */
+.menu-bar .collapse {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out;
+}
+
+.menu-bar .collapse.show {
+  max-height: 300px; /* Adjust as needed */
+  transition: max-height 0.5s ease-in;
+}
+
+.menu-bar .expanded .collapse {
+  max-height: 300px; /* Adjust as needed */
+}
+
+
 .menu-bar .mode .sun-moon {
   height: 50px;
   width: 60px;
@@ -768,6 +785,17 @@ header .image-text .profession {
   /* height: 530px; */
   background-color: var(--white);
   border-radius: 20px;
+}
+
+
+/* Inventory Section */
+
+.inventory{
+  width: 65%;
+}
+
+.overview{
+  width: 32%;
 }
 
 /* Admin Form */

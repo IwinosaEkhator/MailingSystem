@@ -1,6 +1,7 @@
 import React from "react";
 import "../Components/Admin/admin.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'animate.css';
 import Card from "./admin-card.js";
 import { VscRequestChanges } from "react-icons/vsc";
 import { MdOutlinePendingActions } from "react-icons/md";

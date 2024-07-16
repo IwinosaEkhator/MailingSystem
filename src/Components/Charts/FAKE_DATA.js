@@ -40,7 +40,7 @@ export const pieChartData = {
     {
       type: "doughnut",
       label: "Requests",
-      data: [200, 100, 60],
+      data: [500, 100, 60],
       backgroundColor: ["#FFD93D", "#6BCB77", "#FF6B6B"],
       hoverOffset: 4,
     },
