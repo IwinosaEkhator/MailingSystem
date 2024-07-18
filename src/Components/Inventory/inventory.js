@@ -1,52 +1,91 @@
 import React from "react";
 import "../Admin/admin.css";
-import {
-  RiArchiveStackLine,
-  RiArrowTurnBackFill,
-  RiArrowTurnForwardFill,
-} from "react-icons/ri";
-import { AiOutlineProduct } from "react-icons/ai";
 import Adminorder from "../admin-order.js";
-import { Link } from "react-router-dom";
-import Card from "../admin-card";
+import Ordertable, { InventoryProducts } from "../order-table.js";
 
 const Inventory = () => {
+  const inventoryHeader = [
+    "Serial Number",
+    "UPC/Product Name",
+    "Available",
+    "Inbound Time",
+  ];
+
   return (
     <>
       <div className="main-inside px-3">
-        <div className="cardBox">
-          <Card aName="Available" aNum="10">
-            <RiArchiveStackLine
-              style={{ fontSize: "27px", fontSize: "3.5rem" }}
-            />
-          </Card>
-          <Card aName="Categories" aNum="5" aLink="/categories">
-            <AiOutlineProduct
-              style={{ fontSize: "27px", fontSize: "3.5rem" }}
-            />
-          </Card>
-          <Card aName="Inbound" aNum="30" aLink="/inbound">
-            <RiArrowTurnBackFill
-              style={{ fontSize: "27px", fontSize: "3.5rem" }}
-            />
-          </Card>
-          <Card aName="Outbound" aNum="20" aLink="/outbound">
-            <RiArrowTurnForwardFill
-              style={{ fontSize: "27px", fontSize: "3.5rem" }}
-            />
-          </Card>
-        </div>
         <div className="details">
           <div className="d-flex mt-2 justify-content-between">
             <div className="inventory">
-              <Adminorder header="Inventory">
-
+              <Adminorder header="Inventory" headers={inventoryHeader}>
+                {/* Inventory Content */}
+                <InventoryProducts
+                  iSn="123456789"
+                  iUPC="123456789"
+                  iPName="Dell Latitude"
+                  iStocks="100"
+                  inbound="2024-07-17 9:50:00"
+                />
+                <InventoryProducts
+                  iSn="123456789"
+                  iUPC="123456789"
+                  iPName="Dell Latitude"
+                  iStocks="100"
+                  inbound="2024-07-17 9:50:00"
+                />
+                <InventoryProducts
+                  iSn="123456789"
+                  iUPC="123456789"
+                  iPName="Dell Latitude"
+                  iStocks="100"
+                  inbound="2024-07-17 9:50:00"
+                />
+                <InventoryProducts
+                  iSn="123456789"
+                  iUPC="123456789"
+                  iPName="Dell Latitude"
+                  iStocks="100"
+                  inbound="2024-07-17 9:50:00"
+                />
+                <InventoryProducts
+                  iSn="123456789"
+                  iUPC="123456789"
+                  iPName="Dell Latitude"
+                  iStocks="100"
+                  inbound="2024-07-17 9:50:00"
+                />
+                <InventoryProducts
+                  iSn="123456789"
+                  iUPC="123456789"
+                  iPName="Dell Latitude"
+                  iStocks="100"
+                  inbound="2024-07-17 9:50:00"
+                />
+                <InventoryProducts
+                  iSn="123456789"
+                  iUPC="123456789"
+                  iPName="Dell Latitude"
+                  iStocks="100"
+                  inbound="2024-07-17 9:50:00"
+                />
               </Adminorder>
             </div>
             <div className="overview">
-                <Adminorder header="Overview">
+                {/* Overview Content */}
+                <h2>Overview</h2>
+                <div class="row row-cols-2 pt-5">
+                  <p class="col-10">Total Items</p>
+                  <p class="col-2 text-end">1000</p>
 
-                </Adminorder>
+                  <p class="col-10">Available Items</p>
+                  <p class="col-2 text-end">100</p>
+
+                  <p class="col-10">Today Delivery</p>
+                  <p class="col-2 text-end">0</p>
+
+                  <p class="col-10">Yesterday Delivery</p>
+                  <p class="col-2 text-end">3</p>
+                </div>
             </div>
           </div>
         </div>

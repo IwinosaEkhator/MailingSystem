@@ -31,6 +31,19 @@ export const AddedProducts = (props) => {
     );
 }
 
+export const InventoryProducts = (props) => {
+    return (
+        <>
+            <tr>
+                <td>{props.iSn}</td>
+                <td>{props.iUPC}<br/>{props.iPName}</td>
+                <td>{props.iStocks}</td>
+                <td>{props.inbound}</td>
+            </tr>
+        </>
+    );
+}
+
 class Ordertable extends Component {
 
     state = {

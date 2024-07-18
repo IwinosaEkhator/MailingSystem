@@ -794,13 +794,31 @@ header .image-text .profession {
   width: 65%;
 }
 
+.inventory .scrollable-table tbody{
+  max-height: 430px;
+}
+
 .overview{
   width: 32%;
+  background-color: var(--white);
+  border-radius: 20px;
+  color: var(--black1);
+  padding: 2.3% 2%;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
 }
+
+
+
+.overview h2{
+  color: var(--green);
+}
+
+
+
+
 
 /* Admin Form */
 
-/* Global Styles */
 .App {
   margin: 0;
   padding-top: 20px;
