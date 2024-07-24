@@ -759,7 +759,7 @@ header .image-text .profession {
 } */
 
 .requests .scrollable-table tbody{
-  max-height: 480px;
+  max-height: 430px;
 }
 
 .added-product{
@@ -809,6 +809,22 @@ header .image-text .profession {
 
 .overview h2{
   color: var(--green);
+}
+
+.inbound-drop button{
+  background-color: var(--white);
+  color: var(--black1);
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+
+}
+
+.inbound-drop button::after{
+  margin-left: 10px;
+}
+
+.inbound-drop button:hover{
+  /* border: #06AD50 solid 2px; */
+  background-color: var(--green);
 }
 
 .catTitle{

@@ -65,7 +65,7 @@ class Ordertable extends Component {
     }
 
     render() {
-        const { idNum, tName, tItems } = this.props;
+        const { idNum, tName, tItems, tDate } = this.props;
         const { status } = this.state;
         const statusClass = status == 'approved' ? 'status approved' : status == 'declined' ? 'status declined' : 'status pending';
         const statusText = status == 'approved' ? 'Approved' : status == 'declined' ? 'Declined' : 'Pending';
@@ -76,6 +76,7 @@ class Ordertable extends Component {
                     <td>{idNum}</td>
                     <td>{tName}</td>
                     <td>{tItems}</td>
+                    <td>{tDate}</td>
                     <td><span className={statusClass}>{statusText}</span></td>
                     <td>
                         <Link to="/add-form" style={{ fontSize: "22px" }} className="btn"><AiOutlineEdit /></Link>

@@ -1,7 +1,7 @@
 import React from "react";
 import "../Components/Admin/admin.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import 'animate.css';
+import "animate.css";
 import Card from "./admin-card.js";
 import { VscRequestChanges } from "react-icons/vsc";
 import { MdOutlinePendingActions } from "react-icons/md";
@@ -12,7 +12,14 @@ import LineGraph from "./Charts/Line.js";
 import PieGraph from "./Charts/Pie.js";
 
 const Dashboard = () => {
-  const recentOrdersHeaders = ["ID-No", "Name", "Items", "Status", "Actions"];
+  const recentOrdersHeaders = [
+    "ID-No",
+    "Name",
+    "Items",
+    "Requested Time",
+    "Status",
+    "Actions",
+  ];
   const topProductsHeaders = [
     "Product name",
     "Supplier",
@@ -54,30 +61,35 @@ const Dashboard = () => {
               tName="Ekhator Iwinosa"
               tItems="Laptop"
               tStatus="Denied"
+              tDate="10-08-2024"
             />
             <Ordertable
               idNum="npdc.b0001"
               tName="Osunbor Favour"
               tItems="Laptop"
               tStatus="Approved"
+              tDate="10-08-2024"
             />
             <Ordertable
               idNum="npdc.b0000"
               tName="Edwin Ezue"
               tItems="Laptop"
               tStatus="Approved"
+              tDate="10-08-2024"
             />
             <Ordertable
               idNum="npdc.b0000"
               tName="Ugheoke Amhanosi"
               tItems="Laptop"
               tStatus="Pending"
+              tDate="10-08-2024"
             />
             <Ordertable
               idNum="npdc.b0011"
               tName="Ugiagbe Francess"
               tItems="Laptop"
               tStatus="Pending"
+              tDate="10-08-2024"
             />
           </Adminorder>
           <div className="d-flex mt-5 justify-content-between">
@@ -100,7 +112,7 @@ const Dashboard = () => {
                   pSupplier="Iwinosa"
                   pStocks="100"
                   pAmount="36"
-                /> 
+                />
                 <TopProducts
                   pName="DELL LATITUDE"
                   pSupplier="Iwinosa"
