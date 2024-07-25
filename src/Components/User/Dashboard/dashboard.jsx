@@ -1,9 +1,18 @@
 import React from "react";
 import Card from "../../admin-card";
 import AdminOrder from "../../admin-order";
+import { useNavigate,Routes,Route } from "react-router-dom";
+import UserResquest, { UserApproved, UserDeclined, UserPending } from "./Requests Table/requestTable";
 
 const Dashboard = () => {
-  const myRequestHeaders = ["Request Item", "Request Date"];
+
+  const navigate = useNavigate();
+
+  // Function to handle navigation to the New Request page
+  const handleNewRequestClick = () => {
+    navigate("/user/new-request");
+  };
+
   return (
     <>
       <div className="row user-dashboard">
@@ -15,23 +24,25 @@ const Dashboard = () => {
               the technological tools and support they need to perform their
               jobs efficiently.
             </p>
-            <button>New Request</button>
+            <button onClick={handleNewRequestClick}>New Request</button>
           </div>
         </div>
         <div className="col-7 summary">
           <h2 style={{ paddingLeft: "20px", fontSize: "30px" }}>Summary</h2>
           <div>
             <div className="cardBox">
-              <Card aName="Requests" aNum="100" aLink="/requests"></Card>
-              <Card aName="Pending" aNum="50" aLink="/pending"></Card>
-              <Card aName="Approved" aNum="30" aLink="/approved"></Card>
-              <Card aName="Declined" aNum="20" aLink="/declined"></Card>
+              <Card aName="Requests" aNum="10" aLink="/user"></Card>
+              <Card aName="Pending" aNum="5" aLink="/user/pending"></Card>
+              <Card aName="Approved" aNum="3" aLink="/user/approved"></Card>
+              <Card aName="Declined" aNum="2" aLink="/user/declined"></Card>
             </div>
             <div className="details">
-              <AdminOrder
-                header="My Request"
-                headers={myRequestHeaders}
-              ></AdminOrder>
+              <Routes>
+                <Route path="/" element={<UserResquest />} />
+                <Route path="pending" element={<UserPending />} />
+                <Route path="approved" element={<UserApproved />} />
+                <Route path="declined" element={<UserDeclined />} />
+              </Routes>
             </div>
           </div>
         </div>
