@@ -7,8 +7,10 @@ import {
   FaMouse,
   FaKeyboard,
   FaInbox,
+  FaHeadphones
 } from "react-icons/fa";
 import { FaComputer } from "react-icons/fa6";
+import { TbDeviceLandlinePhone, TbPrinter } from "react-icons/tb";
 import { Link } from "react-router-dom";
 
 const NewRequest = () => {
@@ -29,8 +31,9 @@ const NewRequest = () => {
     { name: "Keyboard", icon: <FaKeyboard className="me-3" /> },
     { name: "Dock Station", icon: <FaInbox className="me-3" /> },
     { name: "Desktop", icon: <FaComputer className="me-3" /> },
-    { name: "Printer", icon: <FaComputer className="me-3" /> },
-    { name: "Cisco Telephone", icon: <FaComputer className="me-3" /> },
+    { name: "Printer", icon: <TbPrinter className="me-3" /> },
+    { name: "Cisco Telephone", icon: <TbDeviceLandlinePhone className="me-3" /> },
+    { name: "Headset", icon: <FaHeadphones className="me-3" /> },
 
   ];
 

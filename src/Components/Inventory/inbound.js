@@ -4,7 +4,6 @@ import Adminorder from "../admin-order.js";
 import { Dropdown } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
 const Inbound = () => {
   const inboundHeader = [
@@ -17,12 +16,20 @@ const Inbound = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [showCustomRange, setShowCustomRange] = useState(false);
+  const [dateRange, setDateRange] = useState([null, null]);
+
+  const handleDateChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+    setDateRange(dates);
+  };
 
   return (
     <>
       <div className="main-inside px-3">
         <div className="d-flex align-items-center justify-content-between mx-4 inbound-drop">
-          <div className="inbound-drop d-flex">
+          <div className="inbound-drop d-flex position-relative">
             <Dropdown>
               <Dropdown.Toggle variant="secondary" className="border px-3 p-2 me-3 rounded">
                 Inbound time
@@ -35,28 +42,23 @@ const Inbound = () => {
             </Dropdown>
 
             <Dropdown>
-              <Dropdown.Toggle variant="secondary" className="border px-3 p-2 rounded" onClick={() => setShowCustomRange(!showCustomRange)}>
-                Start date - End date
+              <Dropdown.Toggle
+                variant="secondary"
+                className="border px-3 p-2 rounded"
+                onClick={() => setShowCustomRange(!showCustomRange)}
+              >
+                {startDate && endDate ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}` : "Start date - End date"}
               </Dropdown.Toggle>
               {showCustomRange && (
-                <div className="p-3">
+                <div className="position-absolute p-3 date-dropdown" style={{ zIndex: 1000 }}>
                   <DatePicker
                     selected={startDate}
-                    onChange={(date) => setStartDate(date)}
-                    selectsStart
+                    onChange={handleDateChange}
                     startDate={startDate}
                     endDate={endDate}
-                    placeholderText="Start Date"
-                    className="form-control mb-2"
-                  />
-                  <DatePicker
-                    selected={endDate}
-                    onChange={(date) => setEndDate(date)}
-                    selectsEnd
-                    startDate={startDate}
-                    endDate={endDate}
-                    minDate={startDate}
-                    placeholderText="End Date"
+                    selectsRange
+                    inline
+                    placeholderText="Select Date Range"
                     className="form-control"
                   />
                 </div>

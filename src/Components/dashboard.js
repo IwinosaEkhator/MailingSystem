@@ -5,6 +5,7 @@ import "animate.css";
 import Card from "./admin-card.js";
 import { VscRequestChanges } from "react-icons/vsc";
 import { MdOutlinePendingActions } from "react-icons/md";
+import { AiOutlineDeliveredProcedure } from "react-icons/ai";
 import { FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa6";
 import Adminorder from "./admin-order.js";
 import Ordertable, { AddedProducts, TopProducts } from "./order-table.js";
@@ -32,11 +33,6 @@ const Dashboard = () => {
     <>
       <div className="main-inside px-3">
         <div className="cardBox">
-          <Card aName="Requests" aNum="100" aLink="/requests">
-            <VscRequestChanges
-              style={{ fontSize: "27px", fontSize: "3.5rem" }}
-            />
-          </Card>
           <Card aName="Pending" aNum="50" aLink="/pending">
             <MdOutlinePendingActions
               style={{ fontSize: "27px", fontSize: "3.5rem" }}
@@ -47,6 +43,16 @@ const Dashboard = () => {
           </Card>
           <Card aName="Declined" aNum="20" aLink="/declined">
             <FaRegThumbsDown style={{ fontSize: "27px", fontSize: "3.5rem" }} />
+          </Card>
+          <Card aName="Delivered" aNum="30" aLink="/pending">
+            <AiOutlineDeliveredProcedure
+              style={{ fontSize: "27px", fontSize: "3.5rem" }}
+            />
+          </Card>
+          <Card aName="Requests" aNum="100" aLink="/requests">
+            <VscRequestChanges
+              style={{ fontSize: "27px", fontSize: "3.5rem" }}
+            />
           </Card>
         </div>
         <div className="details">

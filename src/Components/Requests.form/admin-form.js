@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import AdminFormComponents from './adminFormComp';
-import '../Admin/admin.css'
+import '../Admin/admin.css';
 import { FaPrint, FaRegShareSquare, FaDownload } from 'react-icons/fa';
 import { IoIosArrowBack } from "react-icons/io";
-import nnpclogo from "../Assets/nnpc-logo.png"
+import nnpclogo from "../Assets/nnpc-logo.png";
 import Resquestorder from './request-order';
-import Requesttable from './request-table'
+import Requesttable from './request-table';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
@@ -33,7 +33,6 @@ const AdminForm = () => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     }
-    
 
     const nextStep = () => {
         setStep(step + 1);
@@ -138,6 +137,15 @@ const AdminForm = () => {
         } catch (error) {
             console.error('Error sharing:', error);
         }
+    };
+
+    // Function to ensure we have at least 5 rows
+    const getRows = () => {
+        const rows = [];
+        for (let i = 0; i < 7; i++) {
+            rows.push(forms[i] || { description: { SN: '', domainName: '', computerName: '' }, unit: '', quantity: '' });
+        }
+        return rows;
     };
 
     return (
@@ -253,8 +261,7 @@ const AdminForm = () => {
                                     />
                                 </div>
                             </div>
-
-                            <div className='li-group mx-5 px-5'>
+                            <div className="li-group">
                                 <button className="admin-form-button" type="button" onClick={prevStep}>Back</button>
                                 <button className="admin-form-button" type="submit">Submit</button>
                             </div>
@@ -267,7 +274,6 @@ const AdminForm = () => {
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className='d-flex justify-content-end mt-4'>
-                                            {/* <button className='btn me-2 btn-outline-success' title='Print the receipt' onClick={handlePrint}><FaPrint style={{ fontSize: "25px" }} /></button> */}
                                             <button className='btn me-2 btn-outline-success' title='Download' style={{ fontSize: "20px" }} onClick={handleDownload}>Download</button>
                                             <button className='btn btn-outline-success' title='Share' onClick={handleShare}><FaRegShareSquare style={{ fontSize: "25px" }} /></button>
                                         </div>
@@ -304,9 +310,6 @@ const AdminForm = () => {
                                                     <div className="col-sm-6">
                                                         <span>From</span>
                                                         <strong>{formData.from}</strong>
-                                                        <p>
-                                                            Manager ITD
-                                                        </p>
                                                     </div>
                                                     <div className="col-sm-6 text-end">
                                                         <span>To</span>
@@ -329,51 +332,33 @@ const AdminForm = () => {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>
-                                                            Dell Inspiron XPS 15
-                                                            <br /> NPDC-DT-120
-                                                            <br /> GJ356R
-                                                        </td>
-                                                        <td className='text-center'>1</td>
-                                                        <td className='text-center'>1</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>
-                                                            Dell Inspiron XPS 15
-                                                            <br /> NPDC-DT-120
-                                                            <br /> GJ356R
-                                                        </td>
-                                                        <td className='text-center'>3</td>
-                                                        <td className='text-center'>2</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>
-                                                            Dell Inspiron XPS 15
-                                                            <br /> NPDC-DT-120
-                                                            <br /> GJ356R
-                                                        </td>
-                                                        <td className='text-center'>10</td>
-                                                        <td className='text-center'>1</td>
-                                                    </tr>
+                                                    {getRows().map((form, index) => (
+                                                        <tr key={index}>
+                                                            <th scope="row">{index + 1}</th>
+                                                            <td>
+                                                                {form.description.computerName} <br />
+                                                                {form.description.SN} <br />
+                                                                {form.description.domainName}
+                                                            </td>
+                                                            <td className='text-center'>{form.unit}</td>
+                                                            <td className='text-center'>{form.quantity}</td>
+                                                        </tr>
+                                                    ))}
                                                 </tbody>
                                             </table>
 
                                             <div className='row mt-5'>
                                                 <div className='col-8 pe-5'>
                                                     <strong>Delivered by:</strong>
-                                                    <p className='mt-2 mb-0'>Name: Ezue Edwin</p>
-                                                    <p className='mb-0'>Rank: DM</p>
-                                                    <p>Date: 10/6/2024</p>
+                                                    <p className='mt-2 mb-0'>Name: {formData.de_name}</p>
+                                                    <p className='mb-0'>Rank: {formData.de_rank}</p>
+                                                    <p>Date: {formData.de_date}</p>
                                                 </div>
                                                 <div className='col-4'>
                                                     <strong className='pb-3'>Received by:</strong>
                                                     <p className='mt-2 mb-0'>Name: Ekhator Iwinosa</p>
                                                     <p className='mb-0'>Rank: DM</p>
-                                                    <p>Date: 10/6/2024</p>
+                                                    <p>Date: {formData.re_date}</p>
                                                 </div>
                                             </div>
 

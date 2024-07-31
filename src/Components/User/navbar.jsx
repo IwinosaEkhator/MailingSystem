@@ -47,11 +47,6 @@ const Navbar = () => {
             <ul className="dropdown-menu text-small">
               <li>
                 <a className="dropdown-item" href="#">
-                  Settings
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
                   Profile
                 </a>
               </li>

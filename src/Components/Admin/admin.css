@@ -25,6 +25,7 @@ body {
   --green: #06AD50;
   --yellow: #DFDB02;
   --red: #FC0205;
+  --light-blue: #3FA2F6;
   --grey: #e1e1e1;
   --white: #fff;
   --gray: #f5f5f5;
@@ -543,7 +544,7 @@ header .image-text .profession {
   width: 100%;
   padding: 20px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-gap: 30px;
 }
 
@@ -584,32 +585,40 @@ header .image-text .profession {
 }
 
 
-.cardBox a:nth-child(1) {
+.cardBox a:nth-child(5) {
   color: var(--blue);
 }
 
-.cardBox a:nth-child(2) {
+.cardBox a:nth-child(1) {
   color: var(--yellow);
 }
 
-.cardBox a:nth-child(3) {
+.cardBox a:nth-child(2) {
   color: var(--green);
 }
 
-.cardBox a:nth-child(4) {
+.cardBox a:nth-child(3) {
   color: var(--red);
 }
 
-.cardBox a:hover:nth-child(1) {
+.cardBox a:nth-child(4) {
+  color: var(--light-blue);
+}
+
+.cardBox a:hover:nth-child(5) {
   background: var(--blue);
 }
 
-.cardBox a:hover:nth-child(2) {
+.cardBox a:hover:nth-child(1) {
   background: var(--yellow);
 }
 
-.cardBox a:hover:nth-child(4) {
+.cardBox a:hover:nth-child(3) {
   background: var(--red);
+}
+
+.cardBox a:hover:nth-child(4) {
+  background: var(--light-blue);
 }
 
 .details {
@@ -827,6 +836,15 @@ header .image-text .profession {
   background-color: var(--green);
 }
 
+.date-dropdown button{
+  padding-top: 10px;
+  background-color: #f0f0f0;
+}
+
+.date-dropdown button:hover{
+  background-color: var(--white);
+}
+
 .catTitle{
   color:var(--green);
   font-size: 50px;
@@ -911,10 +929,13 @@ header .image-text .profession {
 /* Admin Form */
 
 .App {
-  margin: 0;
-  padding-top: 20px;
+  margin: 0 5% 5%;
+  padding-top: 40px;
+  padding-bottom: 60px;
   color: #18191a;
-  /* height: 100vh; */
+  border-radius: 20px;
+  background-color: var(--white);
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
   /* display: flex;
   justify-content: center;
   align-items: center; */
@@ -1095,6 +1116,7 @@ header .image-text .profession {
   box-shadow: 0px 0px 1px #CCC;
   padding: 40px 40px 30px;
   margin-top: 20px;
+  margin-bottom: 40px;
   border-radius: 4px; 
 }
 
@@ -1128,7 +1150,8 @@ header .image-text .profession {
 }
 
 .receipt-content {
-  background: #ECEEF4; 
+  background: var(--body-color); 
+  border-radius: 20px;
 }
 @media (min-width: 1200px) {
   .receipt-content .container {width: 900px; } 
@@ -1294,107 +1317,3 @@ header .image-text .profession {
   font-size: 12px;
   color: #969CAD; 
 }
-
-
-
-
-/* Admin Login */
-
-/* body {
-  min-height: 100vh;
-  width: 100%;
-  background: #009579;
-} */
-
-.login-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 430px;
-  width: 100%;
-  background: #fff;
-  border-radius: 7px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-}
-
-.login-container .registration {
-  display: none;
-}
-
-.login-container #check:checked ~ .registration {
-  display: block;
-}
-
-.login-container #check:checked ~ .login {
-  display: none;
-}
-
-.login-container #check {
-  display: none;
-}
-
-.login-container .form {
-  padding: 2rem;
-}
-
-.login-container .form header {
-  font-size: 2rem;
-  font-weight: 500;
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-.login-container .form input {
-  height: 60px;
-  width: 100%;
-  padding: 0 15px;
-  font-size: 17px;
-  margin-bottom: 1.3rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  outline: none;
-}
-
-.login-container form input:focus {
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
-}
-
-.login-container .form a {
-  font-size: 16px;
-  color: #06AD50;
-  text-decoration: none;
-}
-
-.login-container .form a:hover {
-  text-decoration: underline;
-}
-
-.login-container .form input.button {
-  color: #fff;
-  background: #20A720;
-  font-size: 1.2rem;
-  font-weight: 500;
-  letter-spacing: 1px;
-  margin-top: 1.7rem;
-  cursor: pointer;
-  transition: 0.4s;
-}
-
-.login-container .form input.button:hover {
-  background: #1a821a;
-}
-
-/* .signup {
-  font-size: 17px;
-  text-align: center;
-}
-
-.signup label {
-  color: #009579;
-  cursor: pointer;
-}
-
-.signup label:hover {
-  text-decoration: underline;
-} */
