@@ -22,10 +22,10 @@ body {
 :root {
   --white1: #fff;
   --blue: #2a2185;
-  --green: #06AD50;
-  --yellow: #DFDB02;
-  --red: #FC0205;
-  --light-blue: #3FA2F6;
+  --green: #06ad50;
+  --yellow: #dfdb02;
+  --red: #fc0205;
+  --light-blue: #3fa2f6;
   --grey: #e1e1e1;
   --white: #fff;
   --gray: #f5f5f5;
@@ -47,13 +47,13 @@ body {
 /* =============== Navigation ================ */
 
 /* Google Font Import - Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 :root {
@@ -118,7 +118,8 @@ body {
   margin-top: 10px;
 }
 
-.sidebar .collapse .m-link,.sidebar .drop{
+.sidebar .collapse .m-link,
+.sidebar .drop {
   height: 50px;
 }
 
@@ -183,7 +184,6 @@ header .image-text .profession {
   display: block;
 }
 
-
 .sidebar header .image img {
   width: 40px;
   border-radius: 6px;
@@ -223,8 +223,6 @@ header .image-text .profession {
 .sidebar .menu-links {
   padding-left: 0;
 }
-
-
 
 .sidebar li.search-box {
   border-radius: 6px;
@@ -308,7 +306,6 @@ header .image-text .profession {
   max-height: 300px; /* Adjust as needed */
 }
 
-
 .menu-bar .mode .sun-moon {
   height: 50px;
   width: 60px;
@@ -352,7 +349,7 @@ header .image-text .profession {
 }
 
 .switch::before {
-  content: '';
+  content: "";
   position: absolute;
   height: 15px;
   width: 15px;
@@ -386,7 +383,7 @@ header .image-text .profession {
   padding: 12px 60px;
 }
 
-.sidebar.close~.home {
+.sidebar.close ~ .home {
   left: 200px;
   height: 100vh;
   width: calc(100% - 78px);
@@ -395,7 +392,6 @@ header .image-text .profession {
 .body.dark .home .text {
   color: var(--text-color);
 }
-
 
 /* .navigation {
     position: fixed;
@@ -503,7 +499,6 @@ header .image-text .profession {
     font-weight: 600;
   } */
 
-
 /* ===================== Main ===================== */
 .main {
   position: absolute;
@@ -513,7 +508,7 @@ header .image-text .profession {
   min-height: 100vh;
   background: var(--body-color);
   transition: var(--tran-03);
-} 
+}
 
 /* .main.close {
   width: calc(100% - 90px);
@@ -524,7 +519,7 @@ header .image-text .profession {
   margin-left: 90px;
 } */
 
-.dashboard-navbar{
+.dashboard-navbar {
   background-color: var(--white);
   padding-top: 35px;
 }
@@ -575,7 +570,7 @@ header .image-text .profession {
 }
 
 .cardBox a:hover {
-  background: #06AD50;
+  background: #06ad50;
 }
 
 .cardBox a:hover .numbers,
@@ -583,7 +578,6 @@ header .image-text .profession {
 .cardBox a:hover .iconBx {
   color: var(--white);
 }
-
 
 .cardBox a:nth-child(5) {
   color: var(--blue);
@@ -662,7 +656,7 @@ header .image-text .profession {
   font-weight: 600;
 }
 
-.details .recentOrders{
+.details .recentOrders {
   background-color: var(--white);
   border-radius: 20px;
   padding: 3% 2% 2%;
@@ -743,7 +737,7 @@ header .image-text .profession {
   font-weight: 500;
 }
 
-.top-products{
+.top-products {
   width: 65%;
 }
 
@@ -753,11 +747,12 @@ header .image-text .profession {
   overflow-y: scroll;
 }
 
-.top-products .scrollable-table tbody{
+.top-products .scrollable-table tbody {
   max-height: 310px;
 }
 
-.scrollable-table thead, .scrollable-table tbody tr {
+.scrollable-table thead,
+.scrollable-table tbody tr {
   display: table;
   width: 100%;
   table-layout: fixed;
@@ -767,47 +762,46 @@ header .image-text .profession {
   max-height: 100vh;
 } */
 
-.requests .scrollable-table tbody{
+.requests .scrollable-table tbody {
   max-height: 430px;
 }
 
-.added-product{
+.added-product {
   width: 35%;
 }
 
-.added-product .recentOrders{
+.added-product .recentOrders {
   height: 430px;
 }
 
-.added-product table tr td:nth-child(2){
+.added-product table tr td:nth-child(2) {
   text-align: center !important;
 }
 
-.chart1{
+.chart1 {
   width: 32%;
   background-color: var(--white);
   border-radius: 20px;
 }
 
-.chart2{
+.chart2 {
   width: 62%;
   /* height: 530px; */
   background-color: var(--white);
   border-radius: 20px;
 }
 
-
 /* Inventory Section */
 
-.inventory{
+.inventory {
   width: 65%;
 }
 
-.inventory .scrollable-table tbody{
+.inventory .scrollable-table tbody {
   max-height: 430px;
 }
 
-.overview{
+.overview {
   width: 32%;
   background-color: var(--white);
   border-radius: 20px;
@@ -816,37 +810,61 @@ header .image-text .profession {
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
 }
 
-.overview h2{
+.overview h2 {
   color: var(--green);
 }
 
-.inbound-drop button{
+.inbound-drop button {
   background-color: var(--white);
   color: var(--black1);
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
-
 }
 
-.inbound-drop button::after{
+.inbound-drop button::after {
   margin-left: 10px;
 }
 
-.inbound-drop button:hover{
+.inbound-drop button:hover {
   /* border: #06AD50 solid 2px; */
   background-color: var(--green);
 }
 
-.date-dropdown button{
+.date-dropdown button {
   padding-top: 10px;
   background-color: #f0f0f0;
 }
 
-.date-dropdown button:hover{
+.date-dropdown button:hover {
   background-color: var(--white);
 }
 
-.catTitle{
-  color:var(--green);
+.react-datepicker__day--selected,
+.react-datepicker__day--in-range {
+  background-color: var(--green) !important;
+}
+
+.react-datepicker__day--in-range {
+  color: var(--text-color) !important;
+}
+
+.react-datepicker__day--in-selecting-range:not(
+    .react-datepicker__day--in-range,
+    .react-datepicker__month-text--in-range,.react-datepicker__quarter-text--in-range,.react-datepicker__year-text--in-range
+  ) {
+  background-color: #06ad517c !important;
+}
+
+.react-datepicker__day--keyboard-selected{
+  background-color: #06ad517c !important;
+}
+
+.dropdown-item:active {
+  background-color: var(--green);
+}
+
+
+.catTitle {
+  color: var(--green);
   font-size: 50px;
   margin: 10px 20px 20px;
 }
@@ -889,21 +907,19 @@ header .image-text .profession {
 
 .catBox a:hover {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  transition: .3s;
+  transition: 0.3s;
   cursor: pointer;
 }
 
-.modal-box .modal-title{
+.modal-box .modal-title {
   color: var(--green);
   font-size: 50px;
 }
 
-.modal-box .list-group-n{
+.modal-box .list-group-n {
   margin: 0 auto;
   /* width: 100%; */
 }
-
-
 
 /* .category-h{
   color: var(--green);
@@ -923,8 +939,6 @@ header .image-text .profession {
   transition: .3s;
   cursor: pointer;
 } */
-
-
 
 /* Admin Form */
 
@@ -956,12 +970,12 @@ header .image-text .profession {
 }
 
 .App .header {
-  border: 2px solid #06AD50;
+  border: 2px solid #06ad50;
   border-radius: 5px;
   width: 470px;
   cursor: pointer;
   padding: 10px;
-  color: #06AD50;
+  color: #06ad50;
   background-color: #fff;
 }
 
@@ -1027,16 +1041,15 @@ header .image-text .profession {
   font-size: 16px;
   cursor: pointer;
   border: none;
-  background-color: #06AD50;
+  background-color: #06ad50;
   color: #fff;
   border-radius: 8px;
-  transition: .5s;
+  transition: 0.5s;
 }
 
 .App .item-no {
   font-size: 30px;
   font-weight: 600;
-
 }
 
 .li-group .config-request {
@@ -1062,14 +1075,15 @@ header .image-text .profession {
 }
 
 .admin-form .cardHeader h2 {
-  color: #06AD50;
+  color: #06ad50;
 }
 
 .admin-form .cardHeader a {
-  background-color: #06AD50;
+  background-color: #06ad50;
 }
 
-.admin-form .details .recentOrders table tbody tr:hover, .admin-form .details .recentOrders table tbody tr .btn:hover {
+.admin-form .details .recentOrders table tbody tr:hover,
+.admin-form .details .recentOrders table tbody tr .btn:hover {
   background-color: #e1e1e1;
   color: #fff;
 }
@@ -1082,173 +1096,176 @@ header .image-text .profession {
   margin-top: 5px;
   font-size: 17px;
   border: none;
-  border: #06AD50 solid 2px;
+  border: #06ad50 solid 2px;
 }
 
 .details input::placeholder {
   color: #06ad519f; /* Change placeholder color to gray (#999) */
 }
 
-.details input:focus{
+.details input:focus {
   box-shadow: #2167451e 0px 6px 12px -2px, #21674560 0px 3px 7px -3px;
   outline: none;
 }
 
-.details input:focus:not(:focus-visible){
+.details input:focus:not(:focus-visible) {
   outline: none !important;
 }
 
-.details td p{
+.details td p {
   margin: 0;
 }
-
-
 
 /* Reciept Section */
 .receipt-content .logo a:hover {
   text-decoration: none;
-  color: #7793C4; 
+  color: #7793c4;
 }
 
 .receipt-content .invoice-wrapper {
-  background: #FFF;
-  border: 1px solid #CDD3E2;
-  box-shadow: 0px 0px 1px #CCC;
+  background: #fff;
+  border: 1px solid #cdd3e2;
+  box-shadow: 0px 0px 1px #ccc;
   padding: 40px 40px 30px;
   margin-top: 20px;
   margin-bottom: 40px;
-  border-radius: 4px; 
+  border-radius: 4px;
 }
 
 .receipt-content .invoice-wrapper .payment-details span {
-  color: #A9B0BB;
-  display: block; 
+  color: #a9b0bb;
+  display: block;
 }
 .receipt-content .invoice-wrapper .payment-details a {
   display: inline-block;
-  margin-top: 5px; 
+  margin-top: 5px;
 }
 
 .receipt-content .invoice-wrapper .line-items .print a {
   display: inline-block;
-  border: 1px solid #9CB5D6;
+  border: 1px solid #9cb5d6;
   padding: 13px 13px;
   border-radius: 5px;
-  color: #708DC0;
+  color: #708dc0;
   font-size: 13px;
   -webkit-transition: all 0.2s linear;
   -moz-transition: all 0.2s linear;
   -ms-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
-  transition: all 0.2s linear; 
+  transition: all 0.2s linear;
 }
 
 .receipt-content .invoice-wrapper .line-items .print a:hover {
   text-decoration: none;
   border-color: #333;
-  color: #333; 
+  color: #333;
 }
 
 .receipt-content {
-  background: var(--body-color); 
+  background: var(--body-color);
   border-radius: 20px;
 }
 @media (min-width: 1200px) {
-  .receipt-content .container {width: 900px; } 
+  .receipt-content .container {
+    width: 900px;
+  }
 }
 
 .receipt-content .logo {
   text-align: center;
-  margin-top: 50px; 
+  margin-top: 50px;
 }
 
 .receipt-content .logo a {
   font-family: Myriad Pro, Lato, Helvetica Neue, Arial;
   font-size: 36px;
-  letter-spacing: .1px;
+  letter-spacing: 0.1px;
   color: #555;
   font-weight: 300;
   -webkit-transition: all 0.2s linear;
   -moz-transition: all 0.2s linear;
   -ms-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
-  transition: all 0.2s linear; 
+  transition: all 0.2s linear;
 }
 
 .receipt-content .invoice-wrapper .intro {
   line-height: 25px;
-  color: #444; 
+  color: #444;
 }
 
 .receipt-content .invoice-wrapper .payment-info {
   margin-top: 25px;
-  padding-top: 15px; 
+  padding-top: 15px;
 }
 
 .receipt-content .invoice-wrapper .payment-info span {
-  color: #A9B0BB; 
+  color: #a9b0bb;
 }
 
 .receipt-content .invoice-wrapper .payment-info strong {
   display: block;
   color: #444;
-  margin-top: 3px; 
+  margin-top: 3px;
 }
 
 @media (max-width: 767px) {
   .receipt-content .invoice-wrapper .payment-info .text-right {
-  text-align: left;
-  margin-top: 20px; } 
+    text-align: left;
+    margin-top: 20px;
+  }
 }
 .receipt-content .invoice-wrapper .payment-details {
-  border-top: 2px solid #EBECEE;
+  border-top: 2px solid #ebecee;
   margin-top: 30px;
   padding-top: 20px;
-  line-height: 22px; 
+  line-height: 22px;
 }
-
 
 @media (max-width: 767px) {
   .receipt-content .invoice-wrapper .payment-details .text-right {
-  text-align: left;
-  margin-top: 20px; } 
+    text-align: left;
+    margin-top: 20px;
+  }
 }
 .receipt-content .invoice-wrapper .line-items {
-  margin-top: 40px; 
+  margin-top: 40px;
 }
 .receipt-content .invoice-wrapper .line-items .headers {
-  color: #A9B0BB;
+  color: #a9b0bb;
   font-size: 13px;
-  letter-spacing: .3px;
-  border-bottom: 2px solid #EBECEE;
-  padding-bottom: 4px; 
+  letter-spacing: 0.3px;
+  border-bottom: 2px solid #ebecee;
+  padding-bottom: 4px;
 }
 .receipt-content .invoice-wrapper .line-items .items {
   margin-top: 8px;
-  border-bottom: 2px solid #EBECEE;
-  padding-bottom: 8px; 
+  border-bottom: 2px solid #ebecee;
+  padding-bottom: 8px;
 }
 .receipt-content .invoice-wrapper .line-items .items .item {
   padding: 10px 0;
   color: #696969;
-  font-size: 15px; 
+  font-size: 15px;
 }
 @media (max-width: 767px) {
   .receipt-content .invoice-wrapper .line-items .items .item {
-  font-size: 13px; } 
+    font-size: 13px;
+  }
 }
 .receipt-content .invoice-wrapper .line-items .items .item .amount {
   letter-spacing: 0.1px;
-  color: #84868A;
+  color: #84868a;
   font-size: 16px;
- }
+}
 @media (max-width: 767px) {
   .receipt-content .invoice-wrapper .line-items .items .item .amount {
-  font-size: 13px; } 
+    font-size: 13px;
+  }
 }
 
 .receipt-content .invoice-wrapper .line-items .total {
-  margin-top: 30px; 
+  margin-top: 30px;
 }
 
 .receipt-content .invoice-wrapper .line-items .total .extra-notes {
@@ -1256,58 +1273,57 @@ header .image-text .profession {
   width: 40%;
   text-align: left;
   font-size: 13px;
-  color: #7A7A7A;
-  line-height: 20px; 
+  color: #7a7a7a;
+  line-height: 20px;
 }
 
 @media (max-width: 767px) {
   .receipt-content .invoice-wrapper .line-items .total .extra-notes {
-  width: 100%;
-  margin-bottom: 30px;
-  float: none; } 
+    width: 100%;
+    margin-bottom: 30px;
+    float: none;
+  }
 }
 
 .receipt-content .invoice-wrapper .line-items .total .extra-notes strong {
   display: block;
   margin-bottom: 5px;
-  color: #454545; 
+  color: #454545;
 }
 
 .receipt-content .invoice-wrapper .line-items .total .field {
   margin-bottom: 7px;
   font-size: 14px;
-  color: #555; 
+  color: #555;
 }
 
 .receipt-content .invoice-wrapper .line-items .total .field.grand-total {
   margin-top: 10px;
   font-size: 16px;
-  font-weight: 500; 
+  font-weight: 500;
 }
 
 .receipt-content .invoice-wrapper .line-items .total .field.grand-total span {
-  color: #20A720;
-  font-size: 16px; 
+  color: #20a720;
+  font-size: 16px;
 }
 
 .receipt-content .invoice-wrapper .line-items .total .field span {
   display: inline-block;
   margin-left: 20px;
   min-width: 85px;
-  color: #84868A;
-  font-size: 15px; 
+  color: #84868a;
+  font-size: 15px;
 }
 
 .receipt-content .invoice-wrapper .line-items .print {
   margin-top: 50px;
-  text-align: center; 
+  text-align: center;
 }
-
-
 
 .receipt-content .invoice-wrapper .line-items .print a i {
   margin-right: 3px;
-  font-size: 14px; 
+  font-size: 14px;
 }
 
 .receipt-content .footer {
@@ -1315,5 +1331,5 @@ header .image-text .profession {
   margin-bottom: 20px;
   text-align: center;
   font-size: 12px;
-  color: #969CAD; 
+  color: #969cad;
 }
