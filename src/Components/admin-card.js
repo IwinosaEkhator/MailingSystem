@@ -1,6 +1,6 @@
 import React from "react";
 
-import "../Components/Admin/admin.css";
+import "../Admin/admin.css";
 import { Link } from "react-router-dom";
 
 const Card = (props) => {

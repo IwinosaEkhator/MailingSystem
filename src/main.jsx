@@ -1,15 +1,15 @@
 import React from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap"
+import "bootstrap/dist/js/bootstrap.js"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import LoginPage from "./Components/Login/Login-page/login";
 import SignupPage from "./Components/Login/Signup-page/signup";
 import Admin from "./Components/Admin/admin";
 import AdminLogin from "./Components/Sigin Page/admin-login";
-import User from "./Components/User/User"
-import AdminHome from "./Components/admin-home";
+import User from "./User/User"
+import AdminHome from "./Admin/admin-home";
 
 const MailingSystem = () => {
   return (

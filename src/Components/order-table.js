@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import "../Components/Admin/admin.css";
+import "../Admin/admin.css";
 import { AiOutlineEdit } from "react-icons/ai";
 import { FaCheck } from "react-icons/fa6";
 import { FaXmark } from "react-icons/fa6";

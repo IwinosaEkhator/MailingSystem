@@ -1,0 +1,221 @@
+.user-main {
+  min-height: 100vh;
+  background-color: #edeff1;
+  position: relative;
+  z-index: 2;
+}
+
+.user-main::before {
+  content: "";
+  background-image: url(.././Components/Assets/nnpc-logo.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  opacity: 0.05;
+  z-index: -1;
+}
+
+.user-dashboard {
+  margin: 2% 10% 0;
+}
+
+.user-dashboard h2 {
+  color: var(--black);
+  font-size: 20px;
+}
+
+.user-dashboard tbody {
+  height: 400px;
+}
+
+.user-main footer {
+  background-color: #216745;
+  color: #fff;
+}
+
+.new-request {
+  /* height: 300px; */
+  background-color: #fff;
+  background-image: url(../Components/Assets/3226066.jpg);
+  background-size: cover;
+  position: relative;
+  border-radius: 20px;
+  padding: 30px 30px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+
+.new-request::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+}
+
+.new-request h1,
+.new-request p,
+.new-request button {
+  position: relative;
+  color: #fff;
+  z-index: 2;
+}
+
+.new-request h1 {
+  font-size: 45px;
+}
+
+.new-request p {
+  font-size: 18px;
+}
+
+.new-request button {
+  font-weight: 500;
+  color: #000;
+  padding: 15px 20px;
+  border: none;
+  margin-top: 10px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
+    rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
+    rgba(0, 0, 0, 0.07) 0px 16px 16px;
+}
+
+.summary .details h2{
+    font-size: 20px;
+}
+
+.summary .blue h2{
+    color: #2a2185;
+}
+
+.summary .yellow h2{
+    color: #DFDB02;
+}
+
+.summary .red h2{
+    color: #FC0205;
+}
+
+.summary .green h2{
+    color: #06AD50;
+}
+
+
+/* Request Page */
+
+.new-request-page,
+.request-list {
+  margin: 3% 20% 0;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+
+.new-request-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-request {
+  margin-top: 20px;
+  width: 100%;
+  padding: 0 20%;
+}
+
+.dropdown {
+  position: relative;
+  width: 100%;
+  font-family: Arial, sans-serif;
+}
+
+.search-input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  box-sizing: border-box;
+  font-size: 17px;
+}
+
+.dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  max-height: 150px;
+  overflow-y: auto;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.dropdown-list.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dropdown-list-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-list-item:hover {
+  background-color: #f1f1f1;
+}
+
+.no-results {
+  padding: 10px;
+  text-align: center;
+  color: #888;
+}
+
+.request-list ul {
+  list-style-type: none;
+  padding-right: 2rem;
+  margin-bottom: 0;
+}
+
+.request-list ul li {
+  padding: 15px 25px;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.request-list ul li:hover {
+  background-color: #f1f1f1;
+}
+
+.request-list a, .request-list button{
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background-color: #06AD50;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+}
