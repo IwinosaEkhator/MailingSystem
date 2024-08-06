@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import "../../../admin.css";
 import Adminorder from "../../../../Components/admin-order.js";
 import Ordertable from "../../../../Components/order-table.js";
+import Filter from "../../filter.jsx";
+import Export_Print from "../../export.jsx";
 
 const Approved = () => {
   const recentOrdersHeaders = [
@@ -17,8 +19,9 @@ const Approved = () => {
   return (
     <>
       <div className="details requests approved">
+        <Filter filterName="Approved time" />
         <Adminorder header="Approved" headers={recentOrdersHeaders}>
-        <Ordertable
+          <Ordertable
             idNum="npdc.b0000"
             tName="Ekhator Iwinosa"
             tItems="Laptop"
@@ -55,6 +58,7 @@ const Approved = () => {
           />
         </Adminorder>
       </div>
+      <Export_Print />
     </>
   );
 };

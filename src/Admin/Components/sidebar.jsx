@@ -140,7 +140,7 @@ const Sidebar = (props) => {
             </li>
 
             <li className="nav-link m-link">
-              <NavLink to='/'>
+              <NavLink to='/receipts'>
                 <span className='icon'><BiReceipt style={{ fontSize: "33px" }} /></span>
                 <span className="text nav-text">Receipts</span>
               </NavLink>
