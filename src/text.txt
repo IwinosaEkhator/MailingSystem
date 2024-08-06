@@ -174,3 +174,18 @@ function App() {
 }
 
 export default App;
+
+
+Request report provides information of the requests list, pending, approved, declined 
+
+Requests - All
+Requests - Pending
+Requests - Approved
+Requests - Declined
+
+Inventory - All
+Inventory - Inbound
+Inventory - Outbound
+Inventory -Categories
+
+Categories - Laptop and Others (Overview of their Requests)

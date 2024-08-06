@@ -4,6 +4,8 @@ import { Dropdown } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import Filter from "../../filter.jsx";
+import Export_Print from "../../export.jsx";
 
 const Inbound = () => {
   const outboundHeader = [
@@ -40,50 +42,13 @@ const Inbound = () => {
   return (
     <>
       <div className="main-inside px-3">
-        <div className="d-flex align-items-center justify-content-between mx-4 inbound-drop">
-          <div className="inbound-drop d-flex position-relative">
-            <Dropdown>
-              <Dropdown.Toggle variant="secondary" className="border px-3 p-2 me-3 rounded">
-                Outbound time
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Last 24 hours</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Last 7 days</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Last 30 days</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-
-            <Dropdown>
-              <Dropdown.Toggle
-                variant="secondary"
-                className="border px-3 p-2 rounded"
-                onClick={() => setShowCustomRange(!showCustomRange)}
-              >
-                {startDate && endDate ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}` : "Start date - End date"}
-              </Dropdown.Toggle>
-              {showCustomRange && (
-                <div className="position-absolute p-3 date-dropdown" style={{ zIndex: 1000 }} ref={calendarRef}>
-                  <DatePicker
-                    selected={startDate}
-                    onChange={handleDateChange}
-                    startDate={startDate}
-                    endDate={endDate}
-                    selectsRange
-                    inline
-                    placeholderText="Select Date Range"
-                    className="form-control"
-                  />
-                </div>
-              )}
-            </Dropdown>
-          </div>
-          <button className="py-2 px-5 m-0 btn rounded">Remove Items</button>
-        </div>
         <div className="details">
+        <Filter filterName="Outbound time" itemBtn="Remove Items"/>
           <div className="inbound">
             <Adminorder header="Outbound" headers={outboundHeader}></Adminorder>
           </div>
         </div>
+        <Export_Print />
       </div>
     </>
   );

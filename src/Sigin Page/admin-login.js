@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../Sigin Page/signin.css";
-import nnpcLogo from "../Assets/nnpc-logo.png"
 
 const LoginForm = () => {
   return (

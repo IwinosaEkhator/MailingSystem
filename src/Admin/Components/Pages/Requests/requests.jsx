@@ -3,12 +3,15 @@ import React, { useState } from "react";
 import "../../../admin.css";
 import Adminorder from "../../../../Components/admin-order.js";
 import Ordertable from "../../../../Components/order-table.js";
+import Filter from "../../filter.jsx";
+import Export_Print from "../../export.jsx";
 
 const Requests = () => {
     const recentOrdersHeaders = ["ID-No", "Name", "Items", "Requested Time", "Status", "Actions"];
   return (
     <>
       <div className="details requests">
+      <Filter filterName="Requests time" itemBtn="Add Requests"/>
         <Adminorder header="Requests" headers={recentOrdersHeaders}>
           <Ordertable
             idNum="npdc.b0000"
@@ -82,6 +85,7 @@ const Requests = () => {
           />
         </Adminorder>
       </div>
+      <Export_Print/>
     </>
   );
 };

@@ -573,7 +573,7 @@ header .image-text .profession {
 .details {
   position: relative;
   width: 100%;
-  padding: 20px;
+  padding: 0 20px 20px;
   /* margin-top: 10px; */
 }
 
