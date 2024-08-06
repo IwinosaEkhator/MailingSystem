@@ -43,7 +43,7 @@ const Inbound = () => {
     <>
       <div className="main-inside px-3">
         <div className="details">
-        <Filter filterName="Outbound time" itemBtn="Remove Items"/>
+        <Filter filterName="Outbound time"/>
           <div className="inbound">
             <Adminorder header="Outbound" headers={outboundHeader}></Adminorder>
           </div>

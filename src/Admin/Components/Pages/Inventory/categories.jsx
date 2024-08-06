@@ -1,9 +1,23 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Card from "../../../../Components/admin-card";
 import { FaPlus, FaLaptop, FaKeyboard } from "react-icons/fa";
 import { FaMouse } from "react-icons/fa";
 import AdminFormComponents from "../Requests.form/adminFormComp";
+
+const InCard = (props) => {
+  return (
+    <>
+      <Link to={props.aLink}>
+        <div>
+          <div className="numbers">{props.aNum}</div>
+          <div className="cardName">{props.aName}</div>
+        </div>
+
+        <div className="iconBx">{props.children}</div>
+      </Link>
+    </>
+  );
+};
 
 const Categories = () => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -21,7 +35,9 @@ const Categories = () => {
   const handleAddCategory = () => {
     console.log("Adding category:", newCategory); // Debug log
     if (newCategory) {
-      const icon = iconMap[newCategory] || <FaLaptop style={{ fontSize: "3.5rem" }} />;
+      const icon = iconMap[newCategory] || (
+        <FaLaptop style={{ fontSize: "3.5rem" }} />
+      );
       const newCat = { name: newCategory, num: 0, link: "/", icon };
       setCategories([...categories, newCat]);
       setNewCategory("");
@@ -40,8 +56,8 @@ const Categories = () => {
     <>
       <div className="main-inside px-3">
         {isModalVisible && (
-          <Modal 
-            toggleModal={toggleModal} 
+          <Modal
+            toggleModal={toggleModal}
             newCategory={newCategory}
             setNewCategory={setNewCategory}
             handleAddCategory={handleAddCategory}
@@ -50,9 +66,14 @@ const Categories = () => {
         <h1 className="catTitle">Categories</h1>
         <div className="catBox">
           {categories.map((category, index) => (
-            <Card key={index} aName={category.name} aNum={category.num} aLink={category.link}>
+            <InCard
+              key={index}
+              aName={category.name}
+              aNum={category.num}
+              aLink={category.link}
+            >
               {iconMap[category.name]}
-            </Card>
+            </InCard>
           ))}
           <Link
             className="d-flex justify-content-center align-items-center"
@@ -68,7 +89,12 @@ const Categories = () => {
   );
 };
 
-const Modal = ({ toggleModal, newCategory, setNewCategory, handleAddCategory }) => {
+const Modal = ({
+  toggleModal,
+  newCategory,
+  setNewCategory,
+  handleAddCategory,
+}) => {
   const iconMap = {
     Laptop: <FaLaptop style={{ fontSize: "3.5rem" }} />,
     Mouse: <FaMouse style={{ fontSize: "3.5rem" }} />,
