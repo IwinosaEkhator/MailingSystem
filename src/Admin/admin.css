@@ -60,7 +60,6 @@ body {
   --black1: #fff;
 }
 
-
 /* =============== Navigation ================ */
 
 /* ===== Sidebar ===== */
@@ -209,7 +208,7 @@ header .image-text .profession {
   transition: var(--tran-03);
 }
 
-.sidebar li a:hover{
+.sidebar li a:hover {
   background-color: var(--light-green);
 }
 
@@ -802,14 +801,11 @@ header .image-text .profession {
   color: var(--text-color) !important;
 }
 
-.react-datepicker__day--in-selecting-range:not(
-    .react-datepicker__day--in-range,
-    .react-datepicker__month-text--in-range,.react-datepicker__quarter-text--in-range,.react-datepicker__year-text--in-range
-  ) {
+.react-datepicker__day--in-selecting-range:not(.react-datepicker__day--in-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--in-range) {
   background-color: #06ad517c !important;
 }
 
-.react-datepicker__day--keyboard-selected{
+.react-datepicker__day--keyboard-selected {
   background-color: #06ad517c !important;
 }
 
@@ -830,38 +826,100 @@ header .image-text .profession {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 30px;
+  align-items: start; /* Align items to start to prevent stretching */
 }
 
-.catBox a {
+.category-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.catBox .category-card {
   position: relative;
   background: var(--white);
   color: var(--black1);
   padding: 30px;
   border-radius: 20px;
-  display: flex;
-  justify-content: space-between;
   cursor: pointer;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s;
 }
 
-.catBox a .numbers {
-  position: relative;
+.catBox .category-card-main {
+  display: flex;
+  justify-content: space-between;
+}
+
+.catBox .category-card .numbers {
   font-weight: 500;
   font-size: 2.5rem;
 }
 
-.catBox a .cardName {
+.catBox .category-card .cardName {
   font-size: 1.1rem;
   margin-top: 5px;
 }
 
-.catBox a .iconBx {
+.catBox .category-card .iconBx {
   font-size: 3.5rem;
 }
 
-.catBox a:hover {
+.catBox .category-card:hover {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.catBox .dropbtn {
+  font-size: 50px;
+  position: absolute;
+  bottom: -10px;
+  left: 42%;
+  opacity: 0;
+  transition: transform 0.3s ease;
+}
+
+.catBox .category-card:hover .dropbtn {
+  opacity: 1;
   transition: 0.3s;
+}
+
+.catBox .dropbtn.rotated {
+  transform: rotate(180deg);
+}
+
+
+.subcategories {
+  display: block;
+  flex-direction: column;
+  margin-top: 1rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.subcategories.open {
+  max-height: 300px; /* This should be more than the expected height of the content */
+  transition: max-height 0.3s ease-in;
+}
+
+.subcategory {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5rem 0;
+  border-top: 1px solid #ccc;
+}
+
+.add-category {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--white);
+  color: var(--black1);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
 }
 

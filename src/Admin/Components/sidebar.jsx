@@ -111,32 +111,11 @@ const Sidebar = (props) => {
               )}
             </li>
 
-            <li className={`my-2 nav-link d-flex flex-column ${collapsedSection === 'reports' ? 'expanded' : ''}`}>
-              <a
-                className="btn btn-toggle d-flex align-items-center rounded border-0 drop"
-                onClick={() => toggleCollapse('reports')}
-              >
+            <li className="nav-link m-link">
+              <NavLink to='/report' className={({ isActive }) => ` ${isActive ? 'active' : ''}`}>
                 <span className='icon'><TbReportAnalytics style={{ fontSize: "33px" }} /></span>
                 <span className="text nav-text">Report Analytics</span>
-              </a>
-              {collapsedSection === 'reports' && (
-                <div className="collapse show">
-                  <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 ms-3">
-                    <li className="nav-link m-link">
-                      <NavLink to="/delivery-report" className="nav-link m-link link-body-emphasis text-decoration-none rounded">
-                        <span className='icon'><TbReport style={{ fontSize: "33px" }} /></span>
-                        <span className="text nav-text">Delivery Report</span>
-                      </NavLink>
-                    </li>
-                    <li className="nav-link m-link">
-                      <NavLink to="/growth" className="nav-link link-body-emphasis text-decoration-none rounded">
-                        <span className='icon'><AiOutlineLineChart style={{ fontSize: "33px" }} /></span>
-                        <span className="text nav-text">Growth</span>
-                      </NavLink>
-                    </li>
-                  </ul>
-                </div>
-              )}
+              </NavLink>
             </li>
 
             <li className="nav-link m-link">
