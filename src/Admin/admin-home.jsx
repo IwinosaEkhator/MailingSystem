@@ -19,6 +19,7 @@ import Outbound from "./Components/Pages/Inventory/outbound.jsx";
 import ScanItems from "./Components/Pages/Inventory/scan-items.jsx";
 import Categories from "./Components/Pages/Inventory/categories.jsx";
 import Report from "./Components/Pages/Reports/report.jsx";
+import Receipts from "./Components/Pages/receipts.jsx";
 
 const AdminHome = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -44,7 +45,7 @@ const AdminHome = () => {
                     <Route path="/scan-items" element={<ScanItems />} />
                     <Route path="/categories" element={<Categories />} />
                     <Route path="/report" element={<Report />} />
-                    <Route path="/receipts" element={<Declined />} />
+                    <Route path="/receipts" element={<Receipts/>} />
                     <Route path="/add-form" element={<AdminForm />} />
                 </Routes>
             </div>
