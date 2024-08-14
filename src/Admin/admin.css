@@ -1023,6 +1023,41 @@ header .image-text .profession {
   width: 30%;
 }
 
+/* Receipts Page */
+.receipts-grid {
+  color: var(--black1);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.receipts-grid__item {
+  background-color: var(--white);
+  border: 1px solid #e0e0e0;
+  padding: 1rem;
+  border-radius: 5px;
+  text-align: left;
+  border-radius: 12px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+
+.receipt-id, .requester-name, .created-date, .items {
+  display: block;
+}
+
+.receipt-id {
+  font-weight: bold;
+}
+
+.requester-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.created-date, .items {
+  color: #777;
+}
 
 /* Admin Form */
 

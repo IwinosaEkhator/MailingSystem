@@ -50,17 +50,15 @@ const Navbar = () => {
                         </div>
 
 
-                        <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-4" role="search">
+                        {/* <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-4" role="search">
                             <input type="search" className="form-control" placeholder="Search..." aria-label="Search" />
-                        </form>
+                        </form> */}
 
                         <div className="dropdown text-end">
                             <a href="#" className="d-flex justify-content-center align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="rounded-circle me-1" />
                             </a>
                             <ul className="dropdown-menu text-small">
-                                <li><a className="dropdown-item" href="#">Profile</a></li>
-                                <li><hr className="dropdown-divider" /></li>
                                 <li><a className="dropdown-item" href="#">Sign out</a></li>
                             </ul>
                         </div>
