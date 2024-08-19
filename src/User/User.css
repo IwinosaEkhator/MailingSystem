@@ -87,6 +87,38 @@
     rgba(0, 0, 0, 0.07) 0px 16px 16px;
 }
 
+.summary .cardBox a:nth-child(1) {
+  color: var(--blue);
+}
+
+.summary .cardBox a:nth-child(2) {
+  color: var(--yellow);
+}
+
+.summary .cardBox a:nth-child(3) {
+  color: var(--green);
+}
+
+.summary .cardBox a:nth-child(4) {
+  color: var(--red);
+}
+
+.summary .cardBox a:hover:nth-child(1) {
+  background: var(--blue);
+}
+
+.summary .cardBox a:hover:nth-child(2) {
+  background: var(--yellow);
+}
+
+.summary .cardBox a:hover:nth-child(3) {
+  background: var(--green);
+}
+
+.summary .cardBox a:hover:nth-child(4) {
+  background: var(--red);
+}
+
 .summary .details h2{
     font-size: 20px;
 }

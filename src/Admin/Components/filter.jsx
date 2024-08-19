@@ -59,7 +59,7 @@ const Filter = (props) => {
             </Dropdown.Toggle>
             {showCustomRange && (
               <div
-                className="position-absolute p-3 date-dropdown"
+                className="position-absolute  p-3 date-dropdown"
                 style={{ zIndex: 1000 }}
                 ref={calendarRef}
               >
@@ -77,9 +77,21 @@ const Filter = (props) => {
             )}
           </Dropdown>
         </div>
-        {props.itemBtn ? (
-          <button className="py-2 px-5 m-0 btn rounded">{props.itemBtn}</button>
-        ) : null}
+        <div className="d-flex">
+          <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-4" role="search">
+            <input
+              type="search"
+              className="form-control"
+              placeholder="Search..."
+              aria-label="Search"
+            />
+          </form>
+          {props.itemBtn ? (
+            <button className="py-2 px-5 m-0 btn rounded">
+              {props.itemBtn}
+            </button>
+          ) : null}
+        </div>
       </div>
     </>
   );

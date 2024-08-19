@@ -85,6 +85,9 @@ const Inventory = () => {
 
                   <p class="col-10">Yesterday Delivery</p>
                   <p class="col-2 text-end">3</p>
+                  
+                  <p class="col-10">Last Month Delivery</p>
+                  <p class="col-2 text-end">34</p>
                 </div>
             </div>
           </div>

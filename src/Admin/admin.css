@@ -476,6 +476,7 @@ header .image-text .profession {
 .dashboard-navbar {
   background-color: var(--white);
   padding-top: 35px;
+  margin: 0;
 }
 
 .dashboard-navbar .dark {
@@ -492,6 +493,7 @@ header .image-text .profession {
   position: relative;
   width: 100%;
   padding: 20px;
+  margin-top: 15px;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 30px;
@@ -573,7 +575,7 @@ header .image-text .profession {
   position: relative;
   width: 100%;
   padding: 0 20px 20px;
-  /* margin-top: 10px; */
+  margin-top: 20px;
 }
 
 .details .recentOrders {
@@ -619,6 +621,17 @@ header .image-text .profession {
 .details .recentOrders table tr {
   color: var(--black1);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+/* .details .recentOrders table tbody{
+  padding: 0 5px;
+} */
+
+.details .recentOrders table tbody tr:hover{
+  transition: 0.3;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  margin-left: 5px;
 }
 
 .details .recentOrders table tr:last-child {
@@ -766,6 +779,15 @@ header .image-text .profession {
 
 .overview h2 {
   color: var(--green);
+}
+
+.inbound-drop .form-control{
+
+  font-size: 19px;
+}  
+
+.inbound-drop .form-control:focus{
+  border-color: var(--green);
 }
 
 .inbound-drop button {
@@ -935,7 +957,7 @@ header .image-text .profession {
 /* Report Page */
 
 .report{
-  margin: 0 3%;
+  margin: 2% 3% 0;
   color: var(--black1);
   height: 82vh;
 }
@@ -961,11 +983,11 @@ header .image-text .profession {
   transition: border-color 0.3s ease;
 }
 
-.form-select:hover {
+.form-select:hover, .form-control:hover{
   border-color: var(--green);
 }
 
-.form-select:focus{
+.form-select:focus, .form-control:focus{
   border-color: var(--green);
   box-shadow: 0 0 0 .25rem rgba(6, 172, 81, 0.279);
 }
@@ -1021,6 +1043,55 @@ header .image-text .profession {
 
 .report-class .select1{
   width: 30%;
+}
+
+/* Options Page */
+
+/* .options{
+  padding: 3%;
+} */
+
+.options .inside{
+  padding: 3%;
+}
+
+.options .btn-success{
+  background-color: var(--green);
+}
+
+.options .text-danger{
+  color: var(--red);
+}
+
+.mini-navbar{
+  background-color: var(--white);
+  color: var(--black1);
+}
+
+.mini-navbar a, .mini-navbar a.remove{
+  color: var(--black1);
+  cursor: pointer;
+}
+
+.mini-navbar a:hover, .mini-navbar a.active{
+  color: var(--green);
+}
+
+.branding, .admin-right, .notification{
+  background-color: var(--white);
+  color: var(--black1);
+  padding: 4%;
+  margin: 3%;
+  border-radius: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+
+.admin-right table tr td:nth-child(3){
+  text-align: right;
+}
+
+.admin-right table thead tr td:nth-child(3){
+  padding-right: 20px;
 }
 
 /* Receipts Page */

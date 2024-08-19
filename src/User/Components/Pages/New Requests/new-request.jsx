@@ -7,23 +7,21 @@ import {
   FaMouse,
   FaKeyboard,
   FaInbox,
-  FaHeadphones
+  FaHeadphones,
+  FaPlus,
 } from "react-icons/fa";
 import { FaComputer } from "react-icons/fa6";
 import { TbDeviceLandlinePhone, TbPrinter } from "react-icons/tb";
 import { Link } from "react-router-dom";
 
 const NewRequest = () => {
-  // State variables to manage search term, selected option, dropdown state, and requested items
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedOption, setSelectedOption] = useState("Select designation");
   const [isOpen, setIsOpen] = useState(false);
   const [requestedItems, setRequestedItems] = useState([]);
 
-  // Ref for the dropdown to detect clicks outside the dropdown
   const dropdownRef = useRef(null);
 
-  // Define options with corresponding icons
   const options = [
     { name: "Laptop", icon: <FaLaptop className="me-3" /> },
     { name: "Monitor", icon: <FaDesktop className="me-3" /> },
@@ -34,66 +32,68 @@ const NewRequest = () => {
     { name: "Printer", icon: <TbPrinter className="me-3" /> },
     { name: "Cisco Telephone", icon: <TbDeviceLandlinePhone className="me-3" /> },
     { name: "Headset", icon: <FaHeadphones className="me-3" /> },
-
   ];
 
-  // Function to toggle the dropdown visibility
   const toggleDropdown = () => {
     setIsOpen((prevState) => !prevState);
   };
 
-  // Function to handle input change in the search box
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
     if (!isOpen) {
-      setIsOpen(true); // Open the dropdown if it's not already open
+      setIsOpen(true);
     }
   };
 
-  // Function to handle option click
   const handleOptionClick = (option) => {
-    const monitorCount = requestedItems.filter(item => item === "Monitor").length;
-    if (option.name === "Monitor" && monitorCount < 2) {
-      // Allow up to two monitors
-      setRequestedItems([...requestedItems, option.name]);
-    } else if (option.name !== "Monitor" && !requestedItems.includes(option.name)) {
-      // Add other items only once
-      setRequestedItems([...requestedItems, option.name]);
+    const monitorCount = requestedItems.filter((item) => item.name === "Monitor").length;
+    if (option.name === "Monitor" && monitorCount === 0) {
+      setRequestedItems([...requestedItems, { name: option.name, count: 1 }]);
+    } else if (
+      option.name !== "Monitor" &&
+      !requestedItems.some((item) => item.name === option.name)
+    ) {
+      setRequestedItems([...requestedItems, { name: option.name, count: 1 }]);
     }
-    setSelectedOption(option.name); // Set the selected option
-    setSearchTerm(""); // Clear the search term
-    setIsOpen(false); // Close the dropdown
+    setSelectedOption(option.name);
+    setSearchTerm("");
+    setIsOpen(false);
   };
 
-  // Function to handle removing an item from the requested items list
-  const handleRemoveItem = (item) => {
-    setRequestedItems(
-      requestedItems.filter((requestedItem) => requestedItem !== item)
+  const handleAddMonitor = () => {
+    setRequestedItems((prevItems) =>
+      prevItems.map((item) =>
+        item.name === "Monitor" && item.count < 2
+          ? { ...item, count: item.count + 1 }
+          : item
+      )
     );
   };
 
-  // Function to handle clearing all requested items
-  const handleClearAll = () => {
-    setRequestedItems([]); // Clear all items from the requested items list
+  const handleRemoveItem = (itemName) => {
+    setRequestedItems(
+      requestedItems.filter((requestedItem) => requestedItem.name !== itemName)
+    );
   };
 
-  // Filter options based on the search term
+  const handleClearAll = () => {
+    setRequestedItems([]);
+  };
+
   const filteredOptions = options.filter((option) =>
     option.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Function to handle clicks outside the dropdown
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setIsOpen(false); // Close the dropdown if the click is outside the dropdown
+      setIsOpen(false);
     }
   };
 
-  // Add event listener to detect clicks outside the dropdown
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside); // Clean up the event listener
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -118,10 +118,10 @@ const NewRequest = () => {
                   filteredOptions.map((option, index) => (
                     <li
                       key={index}
-                      className="dropdown-list-item"
+                      className="dropdown-list-item d-flex align-items-center"
                       onClick={() => handleOptionClick(option)}
                     >
-                      {option.name}
+                      {option.icon} {option.name}
                     </li>
                   ))
                 ) : (
@@ -145,23 +145,37 @@ const NewRequest = () => {
         </span>
         <ul className="list-item mt-5">
           {requestedItems.map((item, index) => {
-            // Find the icon associated with the item
-            const option = options.find((option) => option.name === item);
+            const option = options.find((option) => option.name === item.name);
             return (
-              <li key={index} className="d-flex align-items-center">
-                {option?.icon} {item}
-                <RiDeleteBin6Line
-                  className="text-danger ms-auto"
-                  style={{ fontSize: "24px", cursor: "pointer" }}
-                  onClick={() => handleRemoveItem(item)}
-                />
+              <li
+                key={index}
+                className="d-flex align-items-center justify-content-between"
+              >
+                <span>
+                  {option?.icon} {item.name} {item.name === "Monitor" && `(${item.count})`}
+                </span>
+                <span>
+                  {item.name === "Monitor" && item.count < 2 && (
+                    <FaPlus
+                      style={{ fontSize: "24px", cursor: "pointer" }}
+                      className="text-success me-3"
+                      onClick={handleAddMonitor}
+                    />
+                  )}
+                  <RiDeleteBin6Line
+                    className="text-danger ms-auto"
+                    style={{ fontSize: "24px", cursor: "pointer" }}
+                    onClick={() => handleRemoveItem(item.name)}
+                  />
+                </span>
               </li>
             );
           })}
         </ul>
-        {/* Conditionally render the "Send Request" button */}
         {requestedItems.length > 0 && (
-          <Link to="/user/success" style={{ margin: "50px 50px 30px" }}>Send Request</Link>
+          <Link to="/user/success" style={{ margin: "50px 50px 30px" }}>
+            Send Request
+          </Link>
         )}
       </div>
     </>

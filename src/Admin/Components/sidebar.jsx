@@ -5,6 +5,7 @@ import { VscRequestChanges } from "react-icons/vsc";
 import { FaRegThumbsDown, FaRegThumbsUp, FaChartLine } from "react-icons/fa6";
 import { RiArrowTurnBackFill, RiArrowTurnForwardFill } from "react-icons/ri";
 import { AiOutlineProduct, AiOutlineLineChart } from "react-icons/ai";
+import { IoSettingsOutline } from "react-icons/io5";
 import { BiReceipt } from "react-icons/bi";
 import { TbReportAnalytics, TbReport } from "react-icons/tb";
 import { Link, NavLink } from 'react-router-dom';
@@ -122,6 +123,13 @@ const Sidebar = (props) => {
               <NavLink to='/receipts'>
                 <span className='icon'><BiReceipt style={{ fontSize: "33px" }} /></span>
                 <span className="text nav-text">Receipts</span>
+              </NavLink>
+            </li>
+
+            <li className="nav-link m-link">
+              <NavLink to='/options'>
+                <span className='icon'><IoSettingsOutline style={{ fontSize: "33px" }} /></span>
+                <span className="text nav-text">Options</span>
               </NavLink>
             </li>
           </ul>

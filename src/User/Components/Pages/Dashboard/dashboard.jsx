@@ -1,10 +1,13 @@
 import React from "react";
 import Card from "../../../../Components/admin-card";
-import { useNavigate,Routes,Route } from "react-router-dom";
-import UserResquest, { UserApproved, UserDeclined, UserPending } from "../Requests Table/requestTable";
+import { useNavigate, Routes, Route } from "react-router-dom";
+import UserResquest, {
+  UserApproved,
+  UserDeclined,
+  UserPending,
+} from "../Requests Table/requestTable";
 
 const Dashboard = () => {
-
   const navigate = useNavigate();
 
   // Function to handle navigation to the New Request page
