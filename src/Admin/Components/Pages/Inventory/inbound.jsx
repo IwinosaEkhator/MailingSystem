@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 
-import Adminorder from "../../../../Components/admin-order.js";
+import Adminorder from "../../../../Components/admin-order.jsx";
 import { Dropdown } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import { PiExport } from "react-icons/pi";

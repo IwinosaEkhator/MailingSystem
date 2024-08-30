@@ -1,7 +1,7 @@
 import React from "react";
 import "../../../admin.css";
-import Adminorder from "../../../../Components/admin-order.js";
-import Ordertable, { InventoryProducts } from "../../../../Components/order-table.js";
+import Adminorder from "../../../../Components/admin-order.jsx";
+import Ordertable, { InventoryProducts } from "../../../../Components/order-table.jsx";
 
 const Inventory = () => {
   const inventoryHeader = [

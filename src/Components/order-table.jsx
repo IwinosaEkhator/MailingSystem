@@ -79,6 +79,17 @@ export const AdminAccess = (props) => {
   );
 };
 
+export const UserResquestTable = (props) => {
+  return (
+    <>
+      <tr className="border-bottom">
+        <td>{props.rItems}</td>
+        <td>{props.rTime}</td>
+      </tr>
+    </>
+  );
+};
+
 class Ordertable extends Component {
   state = {
     status: "pending", // initial status
@@ -124,7 +135,7 @@ class Ordertable extends Component {
             <span className={statusClass}>{statusText}</span>
           </td>
           <td>
-            <Link to="/add-form" style={{ fontSize: "22px" }} className="btn">
+            <Link to="/admin/add-form" style={{ fontSize: "22px" }} className="btn">
               <AiOutlineEdit />
             </Link>
             <button

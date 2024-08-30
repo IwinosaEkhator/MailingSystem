@@ -1,10 +1,37 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../../Admin/admin.css";
 
 import { FaBell } from "@react-icons/all-files/fa/FaBell";
 import { BsTrash3 } from "react-icons/bs";
+import { AppContext } from "../../Context/AppContext";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+
+  const { user , token, setUser, setToken } = useContext(AppContext);
+  const navigate = useNavigate()
+
+  async function handleLogout(e) {
+    e.preventDefault()
+
+    const res = await fetch('/api/logout', {
+      method: 'post',
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+    });
+
+    const data = await res.json()
+    console.log(data);
+
+    if (res.ok) {
+      setUser(null)
+      setToken(null)
+      localStorage.removeItem("token");
+      navigate('/login')
+    }
+  }
+
   return (
     <>
       <header className="pb-3 px-5 border-bottom dashboard-navbar d-flex justify-content-between">
@@ -13,7 +40,7 @@ const Navbar = () => {
           className="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none"
         >
           <span className="fs-4 welcome" style={{ color: "var(--black1)" }}>
-            Welcome Back, Admin👏
+            Welcome Back, Administrator👏
           </span>
         </a>
         <div className="d-flex align-items-center">
@@ -32,7 +59,7 @@ const Navbar = () => {
                 <input
                   type="search"
                   className="form-control"
-                  autocomplete="false"
+                  autoComplete="false"
                   placeholder="Type to filter..."
                 />
               </form>
@@ -111,8 +138,23 @@ const Navbar = () => {
             <ul className="dropdown-menu text-small">
               <li>
                 <a className="dropdown-item" href="#">
-                  Sign out
+                  {user ? user.username : "Admin"}
                 </a>
+              </li>
+              <li>
+                <Link className="dropdown-item" to="/user">
+                  User Page
+                </Link>
+              </li>
+              <li>
+                <hr className="dropdown-divider" />
+              </li>
+              <li>
+                <form onSubmit={handleLogout}>
+                  <button className="dropdown-item" href="#">
+                    Logout
+                  </button>
+                </form>
               </li>
             </ul>
           </div>

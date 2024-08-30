@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import "../../../User.css";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import {
@@ -12,15 +12,23 @@ import {
 } from "react-icons/fa";
 import { FaComputer } from "react-icons/fa6";
 import { TbDeviceLandlinePhone, TbPrinter } from "react-icons/tb";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../../../Context/AppContext";
 
 const NewRequest = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedOption, setSelectedOption] = useState("Select designation");
+  const [selectedOption, setSelectedOption] = useState("Select item(s)");
   const [isOpen, setIsOpen] = useState(false);
   const [requestedItems, setRequestedItems] = useState([]);
+  const [formData, setFormData] = useState({
+    request: "",
+  });
+  const [errors, setErrors] = useState({})
+
+  const {token} = useContext(AppContext)
 
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
 
   const options = [
     { name: "Laptop", icon: <FaLaptop className="me-3" /> },
@@ -30,7 +38,10 @@ const NewRequest = () => {
     { name: "Dock Station", icon: <FaInbox className="me-3" /> },
     { name: "Desktop", icon: <FaComputer className="me-3" /> },
     { name: "Printer", icon: <TbPrinter className="me-3" /> },
-    { name: "Cisco Telephone", icon: <TbDeviceLandlinePhone className="me-3" /> },
+    {
+      name: "Cisco Telephone",
+      icon: <TbDeviceLandlinePhone className="me-3" />,
+    },
     { name: "Headset", icon: <FaHeadphones className="me-3" /> },
   ];
 
@@ -46,14 +57,18 @@ const NewRequest = () => {
   };
 
   const handleOptionClick = (option) => {
-    const monitorCount = requestedItems.filter((item) => item.name === "Monitor").length;
-    if (option.name === "Monitor" && monitorCount === 0) {
-      setRequestedItems([...requestedItems, { name: option.name, count: 1 }]);
+    const monitorExists = requestedItems.some(
+      (item) => item.name === "Monitor"
+    );
+    if (option.name === "Monitor" && !monitorExists) {
+      setRequestedItems([...requestedItems, { name: "Monitor", count: 1 }]);
+      // console.log("Selected items: Monitor");
     } else if (
       option.name !== "Monitor" &&
       !requestedItems.some((item) => item.name === option.name)
     ) {
       setRequestedItems([...requestedItems, { name: option.name, count: 1 }]);
+      // console.log(`Selected items: ${option.name}`);
     }
     setSelectedOption(option.name);
     setSearchTerm("");
@@ -61,13 +76,15 @@ const NewRequest = () => {
   };
 
   const handleAddMonitor = () => {
-    setRequestedItems((prevItems) =>
-      prevItems.map((item) =>
-        item.name === "Monitor" && item.count < 2
-          ? { ...item, count: item.count + 1 }
-          : item
-      )
-    );
+    const monitorItem = requestedItems.find((item) => item.name === "Monitor");
+    if (monitorItem && monitorItem.count === 1) {
+      setRequestedItems((prevItems) =>
+        prevItems.map((item) =>
+          item.name === "Monitor" ? { ...item, count: item.count + 1 } : item
+        )
+      );
+      // console.log("Selected items: Monitor, Monitor");
+    }
   };
 
   const handleRemoveItem = (itemName) => {
@@ -97,42 +114,86 @@ const NewRequest = () => {
     };
   }, []);
 
+  async function handleCreate(e) {
+    e.preventDefault();
+  
+    // Map the requested items to formData.request
+    const requestString = requestedItems
+      .map((item) =>
+        item.name === "Monitor" && item.count === 2
+          ? ["Monitor", "Monitor"]
+          : item.name
+      )
+      .flat()
+      .join(" , ");
+  
+    // Update formData with the new request string
+    setFormData({ request_items: requestString });
+  
+    const res = await fetch('/api/requests', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ request_items: requestString })  // Ensure this matches the expected format
+    });
+  
+    const data = await res.json();
+    
+    // Log the response from the API
+    console.log(data);
+  
+    if (data.errors) {
+      // console.error('API request failed:', data);
+      setErrors(data.errors)
+    } else {
+      navigate("/user/success");  // Navigate on successful request
+    }
+  }
+  
+
   return (
     <>
       <div className="new-request-page">
         <h1 className="text-center">New Request</h1>
-        <div className="user-request">
-          <div className="dropdown" ref={dropdownRef}>
-            <div className="dropdown-header d-flex" onClick={toggleDropdown}>
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={handleInputChange}
-                className="search-input"
-                placeholder={selectedOption}
-              />
-            </div>
-            {isOpen && (
-              <ul className={`dropdown-list ${isOpen ? "show" : ""}`}>
-                {filteredOptions.length > 0 ? (
-                  filteredOptions.map((option, index) => (
-                    <li
-                      key={index}
-                      className="dropdown-list-item d-flex align-items-center"
-                      onClick={() => handleOptionClick(option)}
-                    >
-                      {option.icon} {option.name}
+        <form className="w-100" onSubmit={handleCreate}>
+          <div className="user-request">
+            <div className="dropdown" ref={dropdownRef}>
+              <div className="dropdown-header d-flex" onClick={toggleDropdown}>
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={handleInputChange}
+                  className="search-input"
+                  placeholder={selectedOption}
+                />
+              </div>
+              {errors.request_items && (
+                <p className="text-danger">{errors.request_items[0]}</p>
+              )}
+              {isOpen && (
+                <ul className={`dropdown-list ${isOpen ? "show" : ""}`}>
+                  {filteredOptions.length > 0 ? (
+                    filteredOptions.map((option, index) => (
+                      <li
+                        key={index}
+                        className="dropdown-list-item d-flex align-items-center"
+                        onClick={() => handleOptionClick(option)}
+                      >
+                        {option.icon} {option.name}
+                      </li>
+                    ))
+                  ) : (
+                    <li className="dropdown-list-item no-results">
+                      No results found
                     </li>
-                  ))
-                ) : (
-                  <li className="dropdown-list-item no-results">
-                    No results found
-                  </li>
-                )}
-              </ul>
-            )}
+                  )}
+                </ul>
+              )}
+            </div>
           </div>
-        </div>
+        </form>
       </div>
       <div className="request-list list-group">
         <span className="d-flex justify-content-between">
@@ -152,7 +213,8 @@ const NewRequest = () => {
                 className="d-flex align-items-center justify-content-between"
               >
                 <span>
-                  {option?.icon} {item.name} {item.name === "Monitor" && `(${item.count})`}
+                  {option?.icon} {item.name}{" "}
+                  {item.name === "Monitor" && `(${item.count})`}
                 </span>
                 <span>
                   {item.name === "Monitor" && item.count < 2 && (
@@ -173,9 +235,21 @@ const NewRequest = () => {
           })}
         </ul>
         {requestedItems.length > 0 && (
-          <Link to="/user/success" style={{ margin: "50px 50px 30px" }}>
+          <button
+            type="submit"
+            onClick={handleCreate}
+            style={{
+              margin: "50px 50px 30px",
+              backgroundColor: "var(--green)",
+              color: "#fff",
+              padding: "15px 20px",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
             Send Request
-          </Link>
+          </button>
         )}
       </div>
     </>

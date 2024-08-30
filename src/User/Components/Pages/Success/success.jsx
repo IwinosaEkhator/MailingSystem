@@ -7,8 +7,8 @@ export const Success = () => {
     <>
       <div className="request-list text-center">
         <FaRegCheckCircle style={{ fontSize: "70px" }} className="mb-4 text-success" />
-        <h1 class="text-body-emphasis">Request Successful</h1>
-        <p class="col-lg-6 mx-auto mb-4">
+        <h1 className="text-body-emphasis">Request Successful</h1>
+        <p className="col-lg-6 mx-auto mb-4">
           Please kindly check your mail for more information.
         </p>
       </div>

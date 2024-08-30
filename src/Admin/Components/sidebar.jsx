@@ -30,7 +30,7 @@ const Sidebar = (props) => {
         <div className="menu">
           <ul className="menu-links list-unstyled">
             <li className="nav-link m-link">
-              <NavLink to='/' className={({ isActive }) => ` ${isActive ? 'active' : ''}`}>
+              <NavLink to='/admin' end className={({ isActive }) => ` ${isActive ? 'active' : ''}`}>
                 <span className='icon'><MdOutlineDashboard style={{ fontSize: "33px" }} /></span>
                 <span className="text nav-text">Dashboard</span>
               </NavLink>
@@ -38,7 +38,7 @@ const Sidebar = (props) => {
 
             <li className={`my-2 nav-link d-flex flex-column ${collapsedSection === 'requests' ? 'expanded' : ''}`}>
               <NavLink
-                to='/requests'
+                to='/admin/requests'
                 className="btn btn-toggle d-flex align-items-center rounded border-0 drop"
                 onClick={() => toggleCollapse('requests')}
               >
@@ -49,19 +49,19 @@ const Sidebar = (props) => {
                 <div className="collapse show">
                   <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 ms-3">
                     <li className="nav-link m-link">
-                      <NavLink to="/pending" className="nav-link m-link link-body-emphasis text-decoration-none rounded">
+                      <NavLink to="/admin/pending" className="nav-link m-link link-body-emphasis text-decoration-none rounded">
                         <span className='icon'><MdOutlinePendingActions style={{ fontSize: "33px" }} /></span>
                         <span className="text nav-text">Pending</span>
                       </NavLink>
                     </li>
                     <li className="nav-link m-link">
-                      <NavLink to="/approved" className="nav-link link-body-emphasis text-decoration-none rounded">
+                      <NavLink to="/admin/approved" className="nav-link link-body-emphasis text-decoration-none rounded">
                         <span className='icon'><FaRegThumbsUp style={{ fontSize: "33px" }} /></span>
                         <span className="text nav-text">Approved</span>
                       </NavLink>
                     </li>
                     <li className="nav-link m-link">
-                      <NavLink to="/declined" className="nav-link link-body-emphasis text-decoration-none rounded">
+                      <NavLink to="/admin/declined" className="nav-link link-body-emphasis text-decoration-none rounded">
                         <span className='icon'><FaRegThumbsDown style={{ fontSize: "33px" }} /></span>
                         <span className="text nav-text">Declined</span>
                       </NavLink>
@@ -73,7 +73,7 @@ const Sidebar = (props) => {
 
             <li className={`my-2 nav-link d-flex flex-column ${collapsedSection === 'inventory' ? 'expanded' : ''}`}>
               <NavLink
-                to='/inventory'
+                to='/admin/inventory'
                 className="btn btn-toggle d-flex align-items-center rounded border-0 drop"
                 onClick={() => toggleCollapse('inventory')}
               >
@@ -84,25 +84,25 @@ const Sidebar = (props) => {
                 <div className="collapse show">
                   <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 ms-3">
                     <li className="nav-link m-link">
-                      <NavLink to="/inbound" className="nav-link m-link link-body-emphasis text-decoration-none rounded">
+                      <NavLink to="/admin/inbound" className="nav-link m-link link-body-emphasis text-decoration-none rounded">
                         <span className='icon'><RiArrowTurnBackFill style={{ fontSize: "33px" }} /></span>
                         <span className="text nav-text">Inbound</span>
                       </NavLink>
                     </li>
                     <li className="nav-link m-link">
-                      <NavLink to="/outbound" className="nav-link m-link link-body-emphasis text-decoration-none rounded">
+                      <NavLink to="/admin/outbound" className="nav-link m-link link-body-emphasis text-decoration-none rounded">
                         <span className='icon'><RiArrowTurnForwardFill style={{ fontSize: "33px" }} /></span>
                         <span className="text nav-text">Outbound</span>
                       </NavLink>
                     </li>
                     <li className="nav-link m-link">
-                      <NavLink to="/scan-items" className="nav-link link-body-emphasis text-decoration-none rounded">
+                      <NavLink to="/admin/scan-items" className="nav-link link-body-emphasis text-decoration-none rounded">
                         <span className='icon'><MdOutlineQrCodeScanner style={{ fontSize: "33px" }} /></span>
                         <span className="text nav-text">Scan Items</span>
                       </NavLink>
                     </li>
                     <li className="nav-link m-link">
-                      <NavLink to="/categories" className="nav-link link-body-emphasis text-decoration-none rounded">
+                      <NavLink to="/admin/categories" className="nav-link link-body-emphasis text-decoration-none rounded">
                         <span className='icon'><AiOutlineProduct style={{ fontSize: "33px" }} /></span>
                         <span className="text nav-text">Categories</span>
                       </NavLink>
@@ -113,21 +113,21 @@ const Sidebar = (props) => {
             </li>
 
             <li className="nav-link m-link">
-              <NavLink to='/report' className={({ isActive }) => ` ${isActive ? 'active' : ''}`}>
+              <NavLink to='/admin/report' className={({ isActive }) => ` ${isActive ? 'active' : ''}`}>
                 <span className='icon'><TbReportAnalytics style={{ fontSize: "33px" }} /></span>
                 <span className="text nav-text">Report Analytics</span>
               </NavLink>
             </li>
 
             <li className="nav-link m-link">
-              <NavLink to='/receipts'>
+              <NavLink to='/admin/receipts'>
                 <span className='icon'><BiReceipt style={{ fontSize: "33px" }} /></span>
                 <span className="text nav-text">Receipts</span>
               </NavLink>
             </li>
 
             <li className="nav-link m-link">
-              <NavLink to='/options'>
+              <NavLink to='/admin/options'>
                 <span className='icon'><IoSettingsOutline style={{ fontSize: "33px" }} /></span>
                 <span className="text nav-text">Options</span>
               </NavLink>

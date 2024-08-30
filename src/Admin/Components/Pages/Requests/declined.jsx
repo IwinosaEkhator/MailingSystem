@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 import "../../../admin.css";
-import Adminorder from "../../../../Components/admin-order.js";
-import Ordertable from "../../../../Components/order-table.js";
+import Adminorder from "../../../../Components/admin-order.jsx";
+import Ordertable from "../../../../Components/order-table.jsx";
 import Filter from "../../filter.jsx";
 import Export_Print from "../../export.jsx";
 

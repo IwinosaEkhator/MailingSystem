@@ -34,21 +34,21 @@ const AdminHome = () => {
             <div className={classNames('main')}>
                 <Navbar />
                 <Routes>
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/requests" element={<Requests />} />
-                    <Route path="/pending" element={<Pending />} />
-                    <Route path="/approved" element={<Approved />} />
-                    <Route path="/declined" element={<Declined />} />
+                    <Route path="/*" element={<Dashboard />} />
+                    <Route path="requests" element={<Requests />} />
+                    <Route path="pending" element={<Pending />} />
+                    <Route path="approved" element={<Approved />} />
+                    <Route path="declined" element={<Declined />} />
 
-                    <Route path="/inventory" element={<Inventory />} />
-                    <Route path="/inbound" element={<Inbound />} />
-                    <Route path="/outbound" element={<Outbound />} />
-                    <Route path="/scan-items" element={<ScanItems />} />
-                    <Route path="/categories" element={<Categories />} />
-                    <Route path="/report" element={<Report />} />
-                    <Route path="/receipts" element={<Receipts/>} />
-                    <Route path="/options/*" element={<Options/>} />
-                    <Route path="/add-form" element={<AdminForm />} />
+                    <Route path="inventory" element={<Inventory />} />
+                    <Route path="inbound" element={<Inbound />} />
+                    <Route path="outbound" element={<Outbound />} />
+                    <Route path="scan-items" element={<ScanItems />} />
+                    <Route path="categories" element={<Categories />} />
+                    <Route path="report" element={<Report />} />
+                    <Route path="receipts" element={<Receipts/>} />
+                    <Route path="options/*" element={<Options/>} />
+                    <Route path="add-form" element={<AdminForm />} />
                 </Routes>
             </div>
             <nav className={classNames('sidebar')}>

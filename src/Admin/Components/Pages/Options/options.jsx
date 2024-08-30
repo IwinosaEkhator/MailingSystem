@@ -10,13 +10,13 @@ function Options() {
     <>
       <div className="options">
         <div className="mini-navbar border-bottom py-3 px-5">
-          <NavLink to="/options" className={({ isActive }) => ` ${isActive ? 'me-4 active' : 'me-4'}`}>
+          <NavLink to="/admin/options" end className={({ isActive }) => ` ${isActive ? 'me-4 active' : 'me-4'}`}>
             General
           </NavLink>
-          <NavLink to="/options/admin-right" className="me-4">
+          <NavLink to="/admin/options/admin-right" className="me-4">
             Admin Right
           </NavLink>
-          <NavLink to="/options/notification" className="me-4">
+          <NavLink to="/admin/options/notification" className="me-4">
             Notification
           </NavLink>
         </div>

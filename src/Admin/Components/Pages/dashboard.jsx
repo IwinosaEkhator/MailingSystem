@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../../admin.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "animate.css";
-import Card from "../../../Components/admin-card.js";
+import Card from "../../../Components/admin-card.jsx";
 import { VscRequestChanges } from "react-icons/vsc";
 import { MdOutlinePendingActions } from "react-icons/md";
 import { AiOutlineDeliveredProcedure } from "react-icons/ai";
 import { FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa6";
-import Adminorder from "../../../Components/admin-order.js";
-import Ordertable, { AddedProducts, TopProducts } from "../../../Components/order-table.js";
-import LineGraph from "../Charts/Line.js";
-import PieGraph from "../Charts/Pie.js";
+import Adminorder from "../../../Components/admin-order.jsx";
+import Ordertable, {
+  AddedProducts,
+  TopProducts,
+} from "../../../Components/order-table.jsx";
+import LineGraph from "../Charts/Line.jsx";
+import PieGraph from "../Charts/Pie.jsx";
 
 const Dashboard = () => {
   const recentOrdersHeaders = [
@@ -29,30 +32,43 @@ const Dashboard = () => {
   ];
   const addedProductHeaders = ["Product name", "Stocks", "Supplier"];
 
+  const myRequestHeaders = ["Request Items", "Request Time"];
+  const [requests, setRequests] = useState([]);
+  function createdAt(createdAtDate) {
+    return new Date(createdAtDate).toLocaleString();
+  }
+
+  async function getRequests() {
+    const res = await fetch("/api/requests");
+    const data = await res.json();
+
+    if (res.ok) {
+      setRequests(data);
+    }
+  }
+
+  useEffect(() => {
+    getRequests();
+  }, []);
+
   return (
     <>
       <div className="main-inside px-3">
         <div className="cardBox">
           <Card aName="Pending" aNum="50" aLink="/pending">
-            <MdOutlinePendingActions
-              style={{ fontSize: "27px", fontSize: "3.5rem" }}
-            />
+            <MdOutlinePendingActions style={{ fontSize: "3.5rem" }} />
           </Card>
           <Card aName="Approved" aNum="30" aLink="/approved">
-            <FaRegThumbsUp style={{ fontSize: "27px", fontSize: "3.5rem" }} />
+            <FaRegThumbsUp style={{ fontSize: "3.5rem" }} />
           </Card>
           <Card aName="Declined" aNum="20" aLink="/declined">
-            <FaRegThumbsDown style={{ fontSize: "27px", fontSize: "3.5rem" }} />
+            <FaRegThumbsDown style={{ fontSize: "3.5rem" }} />
           </Card>
           <Card aName="Delivered" aNum="30" aLink="/pending">
-            <AiOutlineDeliveredProcedure
-              style={{ fontSize: "27px", fontSize: "3.5rem" }}
-            />
+            <AiOutlineDeliveredProcedure style={{ fontSize: "3.5rem" }} />
           </Card>
           <Card aName="Requests" aNum="100" aLink="/requests">
-            <VscRequestChanges
-              style={{ fontSize: "27px", fontSize: "3.5rem" }}
-            />
+            <VscRequestChanges style={{ fontSize: "3.5rem" }} />
           </Card>
         </div>
         <div className="details">
@@ -62,41 +78,21 @@ const Dashboard = () => {
             hLink="/requests"
             hName="View All"
           >
-            <Ordertable
-              idNum="npdc.b0000"
-              tName="Ekhator Iwinosa"
-              tItems="Laptop"
-              tStatus="Denied"
-              tDate="10-08-2024"
-            />
-            <Ordertable
-              idNum="npdc.b0001"
-              tName="Osunbor Favour"
-              tItems="Laptop"
-              tStatus="Approved"
-              tDate="10-08-2024"
-            />
-            <Ordertable
-              idNum="npdc.b0000"
-              tName="Edwin Ezue"
-              tItems="Laptop"
-              tStatus="Approved"
-              tDate="10-08-2024"
-            />
-            <Ordertable
-              idNum="npdc.b0000"
-              tName="Ugheoke Amhanosi"
-              tItems="Laptop"
-              tStatus="Pending"
-              tDate="10-08-2024"
-            />
-            <Ordertable
-              idNum="npdc.b0011"
-              tName="Ugiagbe Francess"
-              tItems="Laptop"
-              tStatus="Pending"
-              tDate="10-08-2024"
-            />
+            {requests.length > 0 ? (
+              requests.map((requests) => (
+                <div key={requests.id}>
+                  <Ordertable
+                    idNum={requests.user.username}
+                    tName={requests.user.full_name}
+                    tItems={requests.request_items}
+                    tStatus={requests.status}
+                    tDate={createdAt(requests.created_at)}
+                  />
+                </div>
+              ))
+            ) : (
+              <p>You have made no request</p>
+            )}
           </Adminorder>
           <div className="d-flex mt-5 justify-content-between">
             <div className="top-products">

@@ -668,6 +668,10 @@ header .image-text .profession {
   text-align: center;
 }
 
+.details .recentOrders table tr td:nth-child(5) {
+  text-align: center;
+}
+
 .status.approved {
   padding: 2px 4px;
   background: #8de02c;
@@ -1166,7 +1170,7 @@ header .image-text .profession {
 /* Admin Form */
 
 .App {
-  margin: 0 5% 5%;
+  margin: 2% 5% 2%;
   padding-top: 40px;
   padding-bottom: 60px;
   color: #18191a;
