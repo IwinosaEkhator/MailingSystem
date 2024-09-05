@@ -1,13 +1,55 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AdminOrder from "../../../../Components/admin-order";
-import { AddedProducts, UserResquestTable } from "../../../../Components/order-table";
+import { AddedProducts, UserRequestTable } from "../../../../Components/order-table";
+import { AppContext } from "../../../../Context/AppContext";
 
 export const UserPending = () => {
   const myPendingHeaders = ["Request Item", "Request Time"];
+  const [pendingRequests, setPendingRequests] = useState([]);
+  const { user } = useContext(AppContext);
+
+  function createdAt(createdAtDate) {
+    return new Date(createdAtDate).toLocaleString();
+  }
+
+  async function getRequests() {
+    const res = await fetch("/api/requests");
+    const data = await res.json();
+
+    if (res.ok) {
+      // Filter pending requests for the logged-in user
+      const userPendingRequests = data.filter(
+        request => request.user_id === user.id && request.status === "pending"
+      );
+      setPendingRequests(userPendingRequests);
+    }
+  }
+
+  useEffect(() => {
+    if (user) {
+      getRequests();
+    }
+  }, [user]);
+
   return (
     <>
       <span className="yellow">
-        <AdminOrder header="Pending" headers={myPendingHeaders}></AdminOrder>
+        <AdminOrder header="Pending" headers={myPendingHeaders}>
+          {pendingRequests.length > 0 ? (
+            pendingRequests.map((request) => (
+              <div key={request.id}>
+                <UserRequestTable
+                  rItems={request.request_items} 
+                  rTime={createdAt(request.created_at)} 
+                />
+              </div>
+            ))
+          ) : (
+            <div className="d-flex h-100 justify-content-center align-items-center">
+              <p className="fw-bold fs-5">No pending requests</p>
+            </div>
+          )}
+        </AdminOrder>
       </span>
     </>
   );
@@ -38,6 +80,8 @@ export const UserDeclined = () => {
 const UserResquest = () => {
   const myRequestHeaders = ["Request Items", "Request Time"];
   const [requests, setRequests] = useState([]);
+  const { user } = useContext(AppContext); // Get the logged-in user's info from context
+
   function createdAt(createdAtDate) {
     return new Date(createdAtDate).toLocaleString();
   }
@@ -47,26 +91,35 @@ const UserResquest = () => {
     const data = await res.json();
 
     if (res.ok) {
-      setRequests(data);
+      // Filter requests to show only those made by the logged-in user
+      const userRequests = data.filter(request => request.user_id === user.id);
+      setRequests(userRequests);
     }
   }
 
   useEffect(() => {
-    getRequests();
-  }, []);
+    if (user) {
+      getRequests();
+    }
+  }, [user]);
 
   return (
     <>
       <span className="blue">
         <AdminOrder header="My Request" headers={myRequestHeaders}>
           {requests.length > 0 ? (
-            requests.map((requests) => (
-              <div key={requests.id}>
-                <UserResquestTable rItems={requests.request_items} rTime={createdAt(requests.created_at)} />
+            requests.map((request) => (
+              <div key={request.id}>
+                <UserRequestTable
+                  rItems={request.request_items} 
+                  rTime={createdAt(request.created_at)} 
+                />
               </div>
             ))
           ) : (
-            <p>You have made no request</p>
+            <div className="d-flex h-100 justify-content-center align-items-center">
+              <p className="fw-bold fs-5">You have made no requests</p>
+            </div>
           )}
         </AdminOrder>
       </span>

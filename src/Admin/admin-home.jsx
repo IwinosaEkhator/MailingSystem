@@ -48,7 +48,7 @@ const AdminHome = () => {
                     <Route path="report" element={<Report />} />
                     <Route path="receipts" element={<Receipts/>} />
                     <Route path="options/*" element={<Options/>} />
-                    <Route path="add-form" element={<AdminForm />} />
+                    <Route path="delivery/:id" element={<AdminForm />} />
                 </Routes>
             </div>
             <nav className={classNames('sidebar')}>

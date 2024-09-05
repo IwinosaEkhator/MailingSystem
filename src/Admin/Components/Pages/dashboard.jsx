@@ -55,19 +55,19 @@ const Dashboard = () => {
     <>
       <div className="main-inside px-3">
         <div className="cardBox">
-          <Card aName="Pending" aNum="50" aLink="/pending">
+          <Card aName="Pending" aNum="50" aLink="pending">
             <MdOutlinePendingActions style={{ fontSize: "3.5rem" }} />
           </Card>
-          <Card aName="Approved" aNum="30" aLink="/approved">
+          <Card aName="Approved" aNum="30" aLink="approved">
             <FaRegThumbsUp style={{ fontSize: "3.5rem" }} />
           </Card>
-          <Card aName="Declined" aNum="20" aLink="/declined">
+          <Card aName="Declined" aNum="20" aLink="declined">
             <FaRegThumbsDown style={{ fontSize: "3.5rem" }} />
           </Card>
-          <Card aName="Delivered" aNum="30" aLink="/pending">
+          <Card aName="Delivered" aNum="30" aLink="pending">
             <AiOutlineDeliveredProcedure style={{ fontSize: "3.5rem" }} />
           </Card>
-          <Card aName="Requests" aNum="100" aLink="/requests">
+          <Card aName="Requests" aNum="100" aLink="requests">
             <VscRequestChanges style={{ fontSize: "3.5rem" }} />
           </Card>
         </div>
@@ -75,7 +75,7 @@ const Dashboard = () => {
           <Adminorder
             header="Recent Orders"
             headers={recentOrdersHeaders}
-            hLink="/requests"
+            hLink="requests"
             hName="View All"
           >
             {requests.length > 0 ? (
@@ -87,6 +87,7 @@ const Dashboard = () => {
                     tItems={requests.request_items}
                     tStatus={requests.status}
                     tDate={createdAt(requests.created_at)}
+                    tEdit={`/admin/delivery/${requests.id}`}
                   />
                 </div>
               ))

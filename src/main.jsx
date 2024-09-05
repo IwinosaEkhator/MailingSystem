@@ -25,7 +25,11 @@ const MailingSystem = () => {
         />
         <Route
           path="/user/*"
-          element={user && user.user_type === "user" ? <User /> : <Navigate to="/login" />}
+          element={
+            user && (user.user_type === "user" || user.user_type === "admin") 
+              ? <User /> 
+              : <Navigate to="/login" />
+          }
         />
       </Routes>
     </Router>

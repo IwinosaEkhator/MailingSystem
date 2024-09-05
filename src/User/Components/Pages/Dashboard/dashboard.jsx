@@ -1,19 +1,49 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Card from "../../../../Components/admin-card";
 import { useNavigate, Routes, Route } from "react-router-dom";
-import UserResquest, {
+import UserRequest, {
   UserApproved,
   UserDeclined,
   UserPending,
-} from "../Requests Table/requestTable";
+} from "../Requests Table/requestTable"; 
+import { AppContext } from "../../../../Context/AppContext"; // adjust the import path as needed
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { user } = useContext(AppContext); // Get the logged-in user's info from context
+  const [requests, setRequests] = useState([]);
+  const [pendingRequests, setPendingRequests] = useState([]);
+  const [approvedRequests, setApprovedRequests] = useState([]);
+  const [declinedRequests, setDeclinedRequests] = useState([]);
 
   // Function to handle navigation to the New Request page
   const handleNewRequestClick = () => {
     navigate("/user/new-request");
   };
+
+  async function getRequests() {
+    const res = await fetch("/api/requests");
+    const data = await res.json();
+
+    if (res.ok) {
+      // Filter requests based on their status
+      const userRequests = data.filter(request => request.user_id === user.id);
+      const pending = userRequests.filter(request => request.status === "pending");
+      const approved = userRequests.filter(request => request.status === "approved");
+      const declined = userRequests.filter(request => request.status === "declined");
+
+      setRequests(userRequests);
+      setPendingRequests(pending);
+      setApprovedRequests(approved);
+      setDeclinedRequests(declined);
+    }
+  }
+
+  useEffect(() => {
+    if (user) {
+      getRequests();
+    }
+  }, [user]);
 
   return (
     <>
@@ -33,14 +63,14 @@ const Dashboard = () => {
           <h2 style={{ paddingLeft: "20px", fontSize: "30px" }}>Summary</h2>
           <div>
             <div className="cardBox">
-              <Card aName="Requests" aNum="10" aLink="/user"></Card>
-              <Card aName="Pending" aNum="5" aLink="/user/pending"></Card>
-              <Card aName="Approved" aNum="3" aLink="/user/approved"></Card>
-              <Card aName="Declined" aNum="2" aLink="/user/declined"></Card>
+              <Card aName="Requests" aNum={requests.length} aLink="/user"></Card>
+              <Card aName="Pending" aNum={pendingRequests.length} aLink="/user/pending"></Card>
+              <Card aName="Approved" aNum={approvedRequests.length} aLink="/user/approved"></Card>
+              <Card aName="Declined" aNum={declinedRequests.length} aLink="/user/declined"></Card>
             </div>
             <div className="details">
               <Routes>
-                <Route path="/" element={<UserResquest />} />
+                <Route path="/" element={<UserRequest />} />
                 <Route path="pending" element={<UserPending />} />
                 <Route path="approved" element={<UserApproved />} />
                 <Route path="declined" element={<UserDeclined />} />

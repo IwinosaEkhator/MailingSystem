@@ -1309,7 +1309,11 @@ header .image-text .profession {
   background-color: #06ad50;
 }
 
-.admin-form .details .recentOrders table tbody tr:hover,
+.admin-form .details .recentOrders table tbody tr:hover{
+  background-color: #e1e1e1;
+}
+
+
 .admin-form .details .recentOrders table tbody tr .btn:hover {
   background-color: #e1e1e1;
   color: #fff;

@@ -79,7 +79,7 @@ export const AdminAccess = (props) => {
   );
 };
 
-export const UserResquestTable = (props) => {
+export const UserRequestTable = (props) => {
   return (
     <>
       <tr className="border-bottom">
@@ -109,7 +109,7 @@ class Ordertable extends Component {
   };
 
   render() {
-    const { idNum, tName, tItems, tDate } = this.props;
+    const { idNum, tName, tItems, tDate, tEdit } = this.props;
     const { status } = this.state;
     const statusClass =
       status == "approved"
@@ -135,7 +135,7 @@ class Ordertable extends Component {
             <span className={statusClass}>{statusText}</span>
           </td>
           <td>
-            <Link to="/admin/add-form" style={{ fontSize: "22px" }} className="btn">
+            <Link to={tEdit} style={{ fontSize: "22px" }} className="btn">
               <AiOutlineEdit />
             </Link>
             <button
