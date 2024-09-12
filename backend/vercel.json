@@ -1,16 +1,16 @@
 {
     "version": 2,
-      "framework": null,
+    "framework": null,
     "functions": {
-        "api.php": { "runtime": "vercel-php@0.6.0" }
+        "api/index.php": { "runtime": "vercel-php@latest" }
     },
     "routes": [{
         "src": "/(.*)",
-        "dest": "/api.php"
+        "dest": "/api/index.php"
     }],
     "env": {
         "APP_ENV": "production",
-        "APP_DEBUG": "true",
+        "APP_DEBUG": "false",
         "APP_URL": "https://yourproductionurl.com",
 
         "APP_CONFIG_CACHE": "/tmp/config.php",
@@ -20,8 +20,10 @@
         "APP_SERVICES_CACHE": "/tmp/services.php",
         "VIEW_COMPILED_PATH": "/tmp",
 
-        "CACHE_DRIVER": "array",
+        "CACHE_DRIVER": "redis",
+        "SESSION_DRIVER": "redis",
+
         "LOG_CHANNEL": "stderr",
-        "SESSION_DRIVER": "cookie"
+        "SESSION_LIFETIME": "120"
     }
 }
