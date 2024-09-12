@@ -7,12 +7,12 @@ class Requesttable extends Component {
     super(props);
     this.state = {
       isEditing: true, // Start with editing mode
-      SN: props.tDescription.SN,
-      domainName: props.tDescription.domainName,
-      computerName: props.tDescription.computerName,
+      serial_number: props.tSerialNumber,
+      domain_name: props.tDomainName,
+      item_name: props.tItemName,
       unit: props.tUnit,
       quantity: props.tQuantity,
-      isCollapsed: true, // Control the visibility of additional inputs (like SN and domainName)
+      isCollapsed: true, // Control the visibility of additional inputs (like serial_number and domain_name)
     };
   }
 
@@ -22,15 +22,17 @@ class Requesttable extends Component {
     const { isEditing } = this.state;
 
     if (isEditing) {
-      const updatedDescription = {
-        SN: this.state.SN,
-        domainName: this.state.domainName,
-        computerName: this.state.computerName,
-      };
+      // const updatedDescription = {
+      //   serial_number: this.state.serial_number,
+      //   domain_name: this.state.domain_name,
+      //   item_name: this.state.item_name,
+      // };
 
       this.props.handleUpdateDescription(
         this.props.tKey,
-        updatedDescription,
+        this.state.serial_number,
+        this.state.domain_name,
+        this.state.item_name,
         this.state.unit,
         this.state.quantity
       );
@@ -47,9 +49,9 @@ class Requesttable extends Component {
     const { tItem, removeForm } = this.props;
     const {
       isEditing,
-      SN,
-      domainName,
-      computerName,
+      serial_number,
+      domain_name,
+      item_name,
       unit,
       quantity,
       isCollapsed,
@@ -66,9 +68,9 @@ class Requesttable extends Component {
                 <input
                   type="text"
                   placeholder="Item name"
-                  value={computerName}
+                  value={item_name}
                   onChange={(e) =>
-                    this.setState({ computerName: e.target.value })
+                    this.setState({ item_name: e.target.value })
                   }
                 />
                 <button
@@ -85,15 +87,15 @@ class Requesttable extends Component {
                   <input
                     type="text"
                     placeholder="Enter S/N"
-                    value={SN}
-                    onChange={(e) => this.setState({ SN: e.target.value })}
+                    value={serial_number}
+                    onChange={(e) => this.setState({ serial_number: e.target.value })}
                   />
                   <input
                     type="text"
                     placeholder="Enter Domain Name"
-                    value={domainName}
+                    value={domain_name}
                     onChange={(e) =>
-                      this.setState({ domainName: e.target.value })
+                      this.setState({ domain_name: e.target.value })
                     }
                   />
                 </div>
@@ -103,7 +105,7 @@ class Requesttable extends Component {
             <div className="">
               {/* View Mode */}
               <span className="d-flex justify-space-between align-items-center">
-                <p>{computerName}</p>
+                <p>{item_name}</p>
                 <button
                   className="btn me-auto"
                   type="button"
@@ -115,8 +117,8 @@ class Requesttable extends Component {
 
               {!isCollapsed && (
                 <div>
-                  <p>SN: {SN}</p>
-                  <p>Domain Name: {domainName}</p>
+                  <p>Serial Number: {serial_number}</p>
+                  <p>Domain Name: {domain_name}</p>
                 </div>
               )}
             </div>

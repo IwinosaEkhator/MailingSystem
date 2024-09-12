@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import "../../../admin.css";
 import Adminorder from "../../../../Components/admin-order.jsx";
 import Ordertable from "../../../../Components/order-table.jsx";
 import Filter from "../../filter.jsx";
 import Export_Print from "../../export.jsx";
+import { AppContext } from "../../../../Context/AppContext.jsx";
 
 const Pending = () => {
   const recentOrdersHeaders = [
@@ -16,49 +17,58 @@ const Pending = () => {
     "Actions",
   ];
 
+  const [pendingRequests, setPendingRequests] = useState([]);
+  const { user } = useContext(AppContext);
+
+  function createdAt(createdAtDate) {
+    return new Date(createdAtDate).toLocaleString();
+  }
+
+  async function getRequests() {
+    const res = await fetch("/api/requests");
+    const data = await res.json();
+
+    if (res.ok) {
+      // Filter pending requests for the logged-in user
+      const userPendingRequests = data.filter(
+        (request) => request.status === "pending"
+      );
+      setPendingRequests(userPendingRequests);
+    }
+  }
+
+  useEffect(() => {
+    if (user) {
+      getRequests();
+    }
+  }, [user]);
+
   return (
     <>
       <div className="details requests pending">
         <Filter filterName="Pending time" />
         <Adminorder header="Pending" headers={recentOrdersHeaders}>
-          <Ordertable
-            idNum="npdc.b0000"
-            tName="Ekhator Iwinosa"
-            tItems="Laptop"
-            tStatus="Denied"
-            tDate="10-08-2024"
-          />
-          <Ordertable
-            idNum="npdc.b0001"
-            tName="Osunbor Favour"
-            tItems="Laptop"
-            tStatus="Approved"
-            tDate="10-08-2024"
-          />
-          <Ordertable
-            idNum="npdc.b0000"
-            tName="Edwin Ezue"
-            tItems="Laptop"
-            tStatus="Approved"
-            tDate="10-08-2024"
-          />
-          <Ordertable
-            idNum="npdc.b0000"
-            tName="Ugheoke Amhanosi"
-            tItems="Laptop"
-            tStatus="Pending"
-            tDate="10-08-2024"
-          />
-          <Ordertable
-            idNum="npdc.b0011"
-            tName="Ugiagbe Francess"
-            tItems="Laptop"
-            tStatus="Pending"
-            tDate="10-08-2024"
-          />
+          {pendingRequests.length > 0 ? (
+            pendingRequests.map((request) => (
+              <div key={request.id}>
+                <Ordertable
+                  idNum={request.user.username}
+                  tName={request.user.full_name}
+                  tItems={request.request_items}
+                  tStatus={request.status}
+                  tDate={createdAt(request.created_at)}
+                  tEdit={`/admin/delivery/${request.id}`}
+                />
+              </div>
+            ))
+          ) : (
+            <div className="d-flex h-100 justify-content-center align-items-center">
+              <p className="fw-bold fs-5">No pending requests</p>
+            </div>
+          )}
         </Adminorder>
       </div>
-      <Export_Print/>
+      <Export_Print />
     </>
   );
 };

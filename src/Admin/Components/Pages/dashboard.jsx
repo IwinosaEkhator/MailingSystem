@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../../admin.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "animate.css";
@@ -14,6 +14,8 @@ import Ordertable, {
 } from "../../../Components/order-table.jsx";
 import LineGraph from "../Charts/Line.jsx";
 import PieGraph from "../Charts/Pie.jsx";
+import { AppContext } from "../../../Context/AppContext.jsx";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const recentOrdersHeaders = [
@@ -32,18 +34,110 @@ const Dashboard = () => {
   ];
   const addedProductHeaders = ["Product name", "Stocks", "Supplier"];
 
-  const myRequestHeaders = ["Request Items", "Request Time"];
   const [requests, setRequests] = useState([]);
+  const [pendingRequests, setPendingRequests] = useState([]);
+  const [approvedRequests, setApprovedRequests] = useState([]);
+  const [declinedRequests, setDeclinedRequests] = useState([]);
+  const [deliveredRequests, setDeliveryRequests] = useState([]);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const { token } = useContext(AppContext);
+  const navigate = useNavigate();
+
   function createdAt(createdAtDate) {
     return new Date(createdAtDate).toLocaleString();
   }
 
   async function getRequests() {
-    const res = await fetch("/api/requests");
-    const data = await res.json();
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/api/requests");
+      const data = await res.json();
 
-    if (res.ok) {
-      setRequests(data);
+      if (res.ok) {
+        // Filter requests based on their status
+        const pending = data.filter((request) => request.status === "pending");
+        const approved = data.filter((request) => request.status === "approved");
+        const declined = data.filter((request) => request.status === "declined");
+        const delivered = data.filter(
+          (request) => request.status === "delivered"
+        );
+
+        // Update state with filtered requests
+        setRequests(data);
+        setPendingRequests(pending);
+        setApprovedRequests(approved);
+        setDeclinedRequests(declined);
+        setDeliveryRequests(delivered);
+      } else {
+        setError(data.message || "Failed to fetch requests.");
+      }
+    } catch (error) {
+      setError("An error occurred while fetching requests.");
+      console.error("Error fetching requests:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleEdit(requestId) {
+    console.log("Checking deliveries for request ID:", requestId);
+    setError("");
+    try {
+      // Make API call to check if delivery exists for the request
+      const res = await fetch(`/api/delivery`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          delivery_request_id: requestId,
+        }),
+      });
+
+      const data = await res.json();
+      console.log("Response data:", data);
+
+      if (res.status === 409 && data.existing_delivery) {
+        const confirmEdit = window.confirm(data.message);
+
+        if (confirmEdit) {
+          // Proceed to edit delivery
+          const editRes = await fetch(`/api/delivery/${requestId}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              status: "edited", // Example payload
+              // Add other fields for edit if necessary
+            }),
+          });
+
+          if (editRes.ok) {
+            console.log("Delivery edited successfully");
+            navigate(`/admin/delivery/${requestId}`, {
+              state: { message: "Delivery edited successfully" },
+            });
+          } else {
+            setError("Failed to edit delivery.");
+          }
+        }
+      } else if (res.ok) {
+        console.log("New delivery created successfully");
+        navigate(`/admin/delivery/${requestId}`, {
+          state: { message: "New delivery created successfully" },
+        });
+      } else {
+        setError(data.message || "Failed to create delivery.");
+      }
+    } catch (error) {
+      setError("An error occurred while handling the delivery.");
+      console.error("Error:", error);
     }
   }
 
@@ -54,20 +148,26 @@ const Dashboard = () => {
   return (
     <>
       <div className="main-inside px-3">
+        {loading && <p>Loading requests...</p>}
+        {error && <p className="text-danger">{error}</p>}
         <div className="cardBox">
-          <Card aName="Pending" aNum="50" aLink="pending">
+          <Card aName="Pending" aNum={pendingRequests.length} aLink="pending">
             <MdOutlinePendingActions style={{ fontSize: "3.5rem" }} />
           </Card>
-          <Card aName="Approved" aNum="30" aLink="approved">
+          <Card aName="Approved" aNum={approvedRequests.length} aLink="approved">
             <FaRegThumbsUp style={{ fontSize: "3.5rem" }} />
           </Card>
-          <Card aName="Declined" aNum="20" aLink="declined">
+          <Card aName="Declined" aNum={declinedRequests.length} aLink="declined">
             <FaRegThumbsDown style={{ fontSize: "3.5rem" }} />
           </Card>
-          <Card aName="Delivered" aNum="30" aLink="pending">
+          <Card
+            aName="Delivered"
+            aNum={deliveredRequests.length}
+            aLink="pending"
+          >
             <AiOutlineDeliveredProcedure style={{ fontSize: "3.5rem" }} />
           </Card>
-          <Card aName="Requests" aNum="100" aLink="requests">
+          <Card aName="Requests" aNum={requests.length} aLink="requests">
             <VscRequestChanges style={{ fontSize: "3.5rem" }} />
           </Card>
         </div>
@@ -79,20 +179,20 @@ const Dashboard = () => {
             hName="View All"
           >
             {requests.length > 0 ? (
-              requests.map((requests) => (
-                <div key={requests.id}>
+              requests.map((request) => (
+                <div key={request.id}>
                   <Ordertable
-                    idNum={requests.user.username}
-                    tName={requests.user.full_name}
-                    tItems={requests.request_items}
-                    tStatus={requests.status}
-                    tDate={createdAt(requests.created_at)}
-                    tEdit={`/admin/delivery/${requests.id}`}
+                    idNum={request.user.username}
+                    tName={request.user.full_name}
+                    tItems={request.request_items}
+                    tStatus={request.status}
+                    tDate={createdAt(request.created_at)}
+                    tEdit={() => handleEdit(request.id)} // Pass the request ID
                   />
                 </div>
               ))
             ) : (
-              <p>You have made no request</p>
+              <p>No request available</p>
             )}
           </Adminorder>
           <div className="d-flex mt-5 justify-content-between">
@@ -104,52 +204,10 @@ const Dashboard = () => {
                   pStocks="100"
                   pAmount="36"
                 />
-                <TopProducts
-                  pName="DELL LATITUDE"
-                  pSupplier="Iwinosa"
-                  pStocks="100"
-                  pAmount="36"
-                />
-                <TopProducts
-                  pName="DELL LATITUDE"
-                  pSupplier="Iwinosa"
-                  pStocks="100"
-                  pAmount="36"
-                />
-                <TopProducts
-                  pName="DELL LATITUDE"
-                  pSupplier="Iwinosa"
-                  pStocks="100"
-                  pAmount="36"
-                />
-                <TopProducts
-                  pName="DELL LATITUDE"
-                  pSupplier="Iwinosa"
-                  pStocks="100"
-                  pAmount="36"
-                />
-                <TopProducts
-                  pName="DELL LATITUDE"
-                  pSupplier="Iwinosa"
-                  pStocks="100"
-                  pAmount="36"
-                />
-                <TopProducts
-                  pName="DELL LATITUDE"
-                  pSupplier="Iwinosa"
-                  pStocks="100"
-                  pAmount="36"
-                />
-                <TopProducts
-                  pName="DELL LATITUDE"
-                  pSupplier="Iwinosa"
-                  pStocks="100"
-                  pAmount="36"
-                />
+                {/* Repeat for other products */}
               </Adminorder>
             </div>
             <div className="chart1 p-5">
-              {/* Chart content goes here */}
               <PieGraph />
             </div>
           </div>
@@ -166,31 +224,7 @@ const Dashboard = () => {
                   aStocks="100"
                   aSupplier="Iwinosa"
                 />
-                <AddedProducts
-                  aName="DELL LATITUDE"
-                  aStocks="100"
-                  aSupplier="Iwinosa"
-                />
-                <AddedProducts
-                  aName="DELL LATITUDE"
-                  aStocks="100"
-                  aSupplier="Iwinosa"
-                />
-                <AddedProducts
-                  aName="DELL LATITUDE"
-                  aStocks="100"
-                  aSupplier="Iwinosa"
-                />
-                <AddedProducts
-                  aName="DELL LATITUDE"
-                  aStocks="100"
-                  aSupplier="Iwinosa"
-                />
-                <AddedProducts
-                  aName="DELL LATITUDE"
-                  aStocks="100"
-                  aSupplier="Iwinosa"
-                />
+                {/* Repeat for other added products */}
               </Adminorder>
             </div>
 

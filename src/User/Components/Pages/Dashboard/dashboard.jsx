@@ -41,7 +41,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (user) {
-      getRequests();
+      getRequests(); 
     }
   }, [user]);
 

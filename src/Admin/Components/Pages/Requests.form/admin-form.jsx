@@ -10,13 +10,16 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { AppContext } from "../../../../Context/AppContext";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
+import Invoice from "../../invoice";
 
 const AdminForm = () => {
   const [step, setStep] = useState(1);
   const [forms, setForms] = useState([
     {
       id: Date.now(),
-      description: { SN: "", domainName: "", computerName: "" },
+      serial_number: "",
+      domain_name: "",
+      item_name: "",
       unit: "",
       quantity: "",
     },
@@ -24,21 +27,21 @@ const AdminForm = () => {
   const [formData, setFormData] = useState({
     from: "",
     date: "",
-    de_name: "",
-    de_rank: "",
-    de_sign: "",
-    de_date: "",
-    re_name: "",
-    re_rank: "",
-    re_sign: "",
-    re_date: "",
+    // de_name: "",
+    // de_rank: "",
+    // de_sign: "",
+    // de_date: "",
+    // re_name: "",
+    // re_rank: "",
+    // re_sign: "",
+    // re_date: "",
   });
   const [submitted, setSubmitted] = useState(false);
   const [delivery, setDelivery] = useState(null);
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState({});
   const { id } = useParams();
   const { token } = useContext(AppContext); // Assuming AppContext provides user
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // Fetch delivery data by ID
   async function getRequests() {
@@ -59,20 +62,93 @@ const AdminForm = () => {
     getRequests();
   }, [id]);
 
+  // Validation function
+  const validateStep = () => {
+    const newErrors = {};
+    if (step === 1) {
+      if (!formData.date) newErrors.date = "Date is required";
+      if (!formData.from) newErrors.from = "From field is required";
+    } else if (step === 2) {
+      forms.forEach((form, index) => {
+        if (!form.item_name)
+          newErrors[`item_name_${index}`] = "Item name is required";
+        if (!form.serial_number)
+          newErrors[`serial_number_${index}`] = "Serial number is required";
+        if (!form.domain_name)
+          newErrors[`domain_name_${index}`] = "Domain name is required";
+        if (!form.unit) newErrors[`unit_${index}`] = "Unit is required";
+        if (!form.quantity)
+          newErrors[`quantity_${index}`] = "Quantity is required";
+      });
+    } else if (step === 3) {
+      if (!formData.de_name)
+        newErrors.de_name = "Delivered by name is required";
+      if (!formData.de_rank)
+        newErrors.de_rank = "Delivered by rank is required";
+      if (!formData.de_sign) newErrors.de_sign = "Signature is required";
+      if (!formData.de_date) newErrors.de_date = "Delivery date is required";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const sendPDFToBackend = async () => {
+    try {
+      const pdfBlob = await generatePDF(); // Generate the PDF file
+  
+      const pdfFile = new File([pdfBlob], 'delivery_note.pdf', { type: 'application/pdf' });
+  
+      // Prepare the form data to send to the backend
+      const formData = new FormData();
+      formData.append('pdfFile', pdfFile); // Append the PDF file
+      formData.append('otherData', JSON.stringify(formData)); // Add other form data if needed
+  
+      // Send the data to the Laravel backend
+      const response = await fetch('/api/send-invoice', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`, // Assuming you're using the token for authentication
+        },
+        body: formData, // Send FormData object
+      });
+  
+      if (response.ok) {
+        // Handle success
+        alert('PDF sent successfully for signing!');
+      } else {
+        // Handle error
+        alert('Failed to send PDF to backend.');
+      }
+    } catch (error) {
+      console.error('Error sending PDF to backend:', error);
+      alert('An error occurred while sending the PDF.');
+    }
+  };  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const nextStep = () => setStep(step + 1);
-  const prevStep = () => step > 1 && setStep(step - 1);
+  const nextStep = () => {
+    if (validateStep()) {
+      setStep(step + 1);
+    }
+  };
+
+  const prevStep = () => {
+    if (step > 1) setStep(step - 1);
+  };
 
   const addForm = () => {
     setForms([
       ...forms,
       {
         id: Date.now(),
-        description: { SN: "", domainName: "", computerName: "" },
+        serial_number: "",
+        domain_name: "",
+        item_name: "",
         unit: "",
         quantity: "",
       },
@@ -83,21 +159,30 @@ const AdminForm = () => {
     setForms(forms.filter((form) => form.id !== id));
   };
 
-  const handleUpdateDescription = (id, description, unit, quantity) => {
+  const handleUpdateDescription = (
+    id,
+    serial_number,
+    domain_name,
+    item_name,
+    unit,
+    quantity
+  ) => {
     setForms(
       forms.map((form) =>
-        form.id === id ? { ...form, description, unit, quantity } : form
+        form.id === id
+          ? { ...form, serial_number, domain_name, item_name, unit, quantity }
+          : form
       )
     );
   };
 
   const handlePrint = () => {
-    const printContents = document.getElementById("invoice").innerHTML;
-    const originalContents = document.body.innerHTML;
-    document.body.innerHTML = printContents;
-    window.print();
-    document.body.innerHTML = originalContents;
-    window.location.reload(); // Reload the page to revert back to the original content
+    // const printContents = document.getElementById("invoice").innerHTML;
+    // const originalContents = document.body.innerHTML;
+    // document.body.innerHTML = printContents;
+    generatePdf.print();
+    // document.body.innerHTML = originalContents;
+    // window.location.reload(); // Reload the page to revert back to the original content
   };
 
   const generatePdf = () => {
@@ -129,7 +214,7 @@ const AdminForm = () => {
         }
       }
 
-      return pdf;
+      return pdf.output('blob');
     });
   };
 
@@ -177,7 +262,9 @@ const AdminForm = () => {
     for (let i = 0; i < 7; i++) {
       rows.push(
         forms[i] || {
-          description: { SN: "", domainName: "", computerName: "" },
+          serial_number: "",
+          domain_name: "",
+          item_name: "",
           unit: "",
           quantity: "",
         }
@@ -186,36 +273,48 @@ const AdminForm = () => {
     return rows;
   };
 
-  async function handleSubmit (e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log(formData, forms);
 
-    const res = await fetch('/api/delivery', {
-      method: 'post',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(formData, forms),
-    })
+    const dataToSend = {
+      ...formData, // Spread formData fields
+      ...forms[0], // Spread the first form object
+    };
 
-    const data = await res.json()
+    try {
+      const res = await fetch("/api/delivery", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // Added content-type for JSON payload
+          Authorization: `Bearer ${token}`, // Authorization header
+        },
+        body: JSON.stringify(dataToSend), // Send form data as JSON
+      });
 
-    if (data.errors) {
-      setErrors(data.errors)
-    } else {
-      navigate("/")
+      const data = await res.json();
+
+     if (res.ok) {
+        // Successful response
+        console.log("Delivery created successfully");
+        navigate("/"); // Redirect after successful creation
+      } else if (data.errors) {
+        // Handle validation errors
+        setErrors(data.errors);
+      }
+
+      console.log(data);
+
+      setSubmitted(true);
+      nextStep();
+    } catch (error) {
+      console.error("Error submitting delivery:", error);
     }
-
-    console.log(data)
-
-    setSubmitted(true);
-    nextStep();
-  };
+  }
 
   // Safely access full_name using optional chaining
   const fullName = delivery?.user?.full_name || "Loading...";
   const idNum = delivery?.user?.username || "Loading...";
-  const requestedItems = delivery?.request_items|| "Loading...";
+  const requestedItems = delivery?.request_items || "Loading...";
 
   return (
     <div className="App">
@@ -236,9 +335,7 @@ const AdminForm = () => {
                 }
                 fValue={formData.date}
               />
-              {errors.date && (
-                <p className="text-danger ms-3">{errors.date[0]}</p>
-              )}
+              {errors.date && <p className="text-danger ms-3">{errors.date}</p>}
 
               <AdminFormComponents
                 fName="From"
@@ -249,9 +346,7 @@ const AdminForm = () => {
                 }
                 fValue={formData.from}
               />
-              {errors.from && (
-                <p className="text-danger ms-3">{errors.from[0]}</p>
-              )}
+              {errors.from && <p className="text-danger ms-3">{errors.from}</p>}
 
               <div className="li-group">
                 <AdminFormComponents
@@ -289,7 +384,9 @@ const AdminForm = () => {
                     key={form.id}
                     tKey={form.id}
                     tItem={index + 1}
-                    tDescription={form.description}
+                    tDomainName={form.domain_name}
+                    tSerialNumber={form.serial_number}
+                    tItemName={form.item_name}
                     tUnit={form.unit}
                     tQuantity={form.quantity}
                     handleUpdateDescription={handleUpdateDescription}
@@ -380,22 +477,39 @@ const AdminForm = () => {
               <div className="container bootstrap snippets bootdey">
                 <div className="row">
                   <div className="col-md-12">
-                    <div className="d-flex justify-content-end mt-4">
-                      <button
-                        className="btn me-2 btn-outline-success"
-                        title="Download"
-                        style={{ fontSize: "20px" }}
-                        onClick={handleDownload}
-                      >
-                        Download
-                      </button>
-                      <button
-                        className="btn btn-outline-success"
-                        title="Share"
-                        onClick={handleShare}
-                      >
-                        <FaRegShareSquare style={{ fontSize: "25px" }} />
-                      </button>
+                    <div className="d-flex justify-content-between mt-4">
+                      <span>
+                        <button
+                          className="btn me-3 btn-outline-success"
+                          style={{ fontSize: "20px" }}
+                          onClick={sendPDFToBackend}
+                        >
+                          Sign
+                        </button>
+                        {/* <button
+                          className="btn btn-outline-success"
+                          style={{ fontSize: "20px" }}
+                        >
+                          Recipient's Sign
+                        </button> */}
+                      </span>
+                      <span>
+                        <button
+                          className="btn me-2 btn-outline-success"
+                          title="Download"
+                          style={{ fontSize: "20px" }}
+                          onClick={handleDownload}
+                        >
+                          Download
+                        </button>
+                        <button
+                          className="btn btn-outline-success"
+                          title="Share"
+                          onClick={handleShare}
+                        >
+                          <FaRegShareSquare style={{ fontSize: "25px" }} />
+                        </button>
+                      </span>
                     </div>
                     <div className="invoice-wrapper" id="invoice">
                       <div className="intro row text-capitalize">
@@ -466,9 +580,9 @@ const AdminForm = () => {
                             <tr key={index}>
                               <th scope="row">{index + 1}</th>
                               <td>
-                                {form.description.computerName} <br />
-                                {form.description.SN} <br />
-                                {form.description.domainName}
+                                {form.item_name} <br />
+                                {form.serial_number} <br />
+                                {form.domain_name}
                               </td>
                               <td className="text-center">{form.unit}</td>
                               <td className="text-center">{form.quantity}</td>
@@ -482,19 +596,21 @@ const AdminForm = () => {
                           <strong>Delivered by:</strong>
                           <p className="mt-2 mb-0">Name: {formData.de_name}</p>
                           <p className="mb-0">Rank: {formData.de_rank}</p>
+                          <p className="mb-0">Signature:</p>
                           <p>Date: {formData.de_date}</p>
                         </div>
                         <div className="col-4">
                           <strong className="pb-3">Received by:</strong>
                           <p className="mt-2 mb-0">Name: {fullName}</p>
                           <p className="mb-0">Rank: DM</p>
-                          <p>Date: {formData.re_date}</p>
+                          <p className="mb-0">Signature:</p>
+                          <p>Date: {formData.de_date}</p>
                         </div>
                       </div>
 
                       <div className="footer">Copyright © 2024. NNPC</div>
                     </div>
-                  </div>  
+                  </div>
                 </div>
               </div>
             </div>

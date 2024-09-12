@@ -54,8 +54,7 @@ export const AdminAccess = (props) => {
       <tr>
         <td>
           {props.idNumber}
-          <br />
-          ({props.username})
+          <br />({props.username})
         </td>
         <td>{props.accessType}</td>
         <td>
@@ -101,6 +100,12 @@ class Ordertable extends Component {
     });
   };
 
+  deliveredChanges = () => {
+    this.setState({
+      status: "delivered",
+    });
+  };
+
   declinedChanges = () => {
     this.setState({
       status: "declined",
@@ -135,9 +140,14 @@ class Ordertable extends Component {
             <span className={statusClass}>{statusText}</span>
           </td>
           <td>
-            <Link to={tEdit} style={{ fontSize: "22px" }} className="btn">
+            <button
+              onClick={tEdit}
+              style={{ fontSize: "22px" }}
+              className="btn"
+            >
               <AiOutlineEdit />
-            </Link>
+            </button>
+
             <button
               style={{ fontSize: "22px" }}
               className="btn"
