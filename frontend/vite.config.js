@@ -1,11 +1,11 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import svgrPlugin from "vite-plugin-svgr";
-import envCompatible from "vite-plugin-env-compatible"
+import envCompatible from "vite-plugin-env-compatible";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    envPrefix: 'REACT_APP_',
+  envPrefix: "REACT_APP_",
   // This changes the out put dir from dist to build
   // comment this out if that isn't relevant for your project
   build: {
@@ -22,15 +22,15 @@ export default defineConfig({
     }),
   ],
   server: {
-    proxy:{
-        '/api' : {
-            target: 'http://127.0.0.1:8000',
-            changeOrigin: true,
-            headers:{
-                Accept: 'application/json',
-                "Content-Type": 'application/json'
-            }
-        }
-    }
-  }
+    proxy: {
+      "/api": {
+        target: "http://127.0.0.1:8000",
+        changeOrigin: true,
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      },
+    },
+  },
 });
